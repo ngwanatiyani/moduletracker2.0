@@ -1,13 +1,20 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { GraduationCap } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const [selectedYear, setSelectedYear] = useState("2nd");
+  const navigate = useNavigate();
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Here you would normally handle the account creation
+    // For now, we'll just redirect to the dashboard
+    navigate("/dashboard");
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -69,7 +76,7 @@ const Signup = () => {
               <div className="max-w-md mx-auto">
                 <h3 className="text-2xl font-semibold text-gray-800 mb-8 text-center">Create Account</h3>
                 
-                <form className="space-y-6">
+                <form className="space-y-6" onSubmit={handleSubmit}>
                   {/* Name Fields */}
                   <div className="grid grid-cols-2 gap-4">
                     <div>
