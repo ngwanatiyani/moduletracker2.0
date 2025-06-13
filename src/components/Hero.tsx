@@ -1,6 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import { GraduationCap, BookOpen, TrendingUp } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
@@ -23,9 +24,11 @@ const Hero = () => {
           <a href="#" className="text-white hover:text-yellow-400 transition-colors">Home</a>
           <a href="#" className="text-white hover:text-yellow-400 transition-colors">About</a>
           <a href="#" className="text-white hover:text-yellow-400 transition-colors">Contact</a>
-          <Button variant="outline" className="bg-blue-600 text-white border-blue-500 hover:bg-blue-700">
-            Sign Up
-          </Button>
+          <Link to="/signup">
+            <Button variant="outline" className="bg-blue-600 text-white border-blue-500 hover:bg-blue-700">
+              Sign Up
+            </Button>
+          </Link>
         </div>
       </nav>
 
@@ -42,9 +45,11 @@ const Hero = () => {
             <p className="text-xl text-blue-100 mb-8 leading-relaxed">
               Track progress, improve performance, and reach your academic goals.
             </p>
-            <Button size="lg" className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-8 py-4 text-lg rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
-              Get started
-            </Button>
+            <Link to="/signup">
+              <Button size="lg" className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-8 py-4 text-lg rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+                Get started
+              </Button>
+            </Link>
           </div>
           
           {/* Illustration Area */}
