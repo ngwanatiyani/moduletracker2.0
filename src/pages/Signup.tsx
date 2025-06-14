@@ -36,77 +36,77 @@ const Signup = () => {
       </nav>
 
       {/* Main Content */}
-      <div className="flex items-center justify-center min-h-[calc(100vh-80px)] p-6">
-        <div className="bg-white rounded-2xl shadow-2xl overflow-hidden max-w-5xl w-full">
+      <div className="flex items-center justify-center min-h-[calc(100vh-80px)] p-4">
+        <div className="bg-white rounded-2xl shadow-2xl overflow-hidden max-w-4xl w-full">
           <div className="grid lg:grid-cols-2">
             {/* Left Panel - Welcome with new image */}
-            <div className="bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 p-8 text-white relative overflow-hidden">
+            <div className="bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 p-6 text-white relative overflow-hidden">
               <div className="relative z-10 h-full flex flex-col justify-center">
-                <h2 className="text-3xl font-bold mb-6">Welcome!</h2>
-                <p className="text-lg mb-4 leading-relaxed">
+                <h2 className="text-2xl font-bold mb-4">Welcome!</h2>
+                <p className="text-base mb-3 leading-relaxed">
                   Track your academic progress and stay on top of your studies with ModuleTracker
                 </p>
-                <p className="text-blue-200 mb-8">
+                <p className="text-blue-200 mb-6">
                   Your personalized dashboard is just a login away.
                 </p>
 
                 {/* New illustration */}
-                <div className="mt-8 flex justify-center">
+                <div className="mt-6 flex justify-center">
                   <img 
                     src="/lovable-uploads/a19d6003-dcc7-41e0-b09b-a61c5a7dc7a5.png" 
                     alt="Student with academic tools and dashboard" 
-                    className="w-full max-w-sm h-auto drop-shadow-xl"
+                    className="w-full max-w-xs h-auto drop-shadow-xl"
                   />
                 </div>
               </div>
             </div>
 
             {/* Right Panel - Form */}
-            <div className="p-8">
-              <div className="max-w-md mx-auto">
-                <h3 className="text-2xl font-semibold text-gray-800 mb-8 text-center">Create Account</h3>
+            <div className="p-6">
+              <div className="max-w-sm mx-auto">
+                <h3 className="text-xl font-semibold text-gray-800 mb-6 text-center">Create Account</h3>
                 
-                <form className="space-y-6" onSubmit={handleSubmit}>
+                <form className="space-y-4" onSubmit={handleSubmit}>
                   {/* Name Fields */}
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-2 gap-3">
                     <div>
-                      <Label htmlFor="firstName" className="text-gray-600 mb-2 block">First Name</Label>
+                      <Label htmlFor="firstName" className="text-gray-600 mb-1 block text-sm">First Name</Label>
                       <Input 
                         id="firstName"
                         placeholder="Enter your first name"
-                        className="border-gray-200 focus:border-blue-500"
+                        className="border-gray-200 focus:border-blue-500 h-9"
                       />
                     </div>
                     <div>
-                      <Label htmlFor="surname" className="text-gray-600 mb-2 block">Surname</Label>
+                      <Label htmlFor="surname" className="text-gray-600 mb-1 block text-sm">Surname</Label>
                       <Input 
                         id="surname"
                         placeholder="Enter your surname"
-                        className="border-gray-200 focus:border-blue-500"
+                        className="border-gray-200 focus:border-blue-500 h-9"
                       />
                     </div>
                   </div>
 
                   {/* Student Number */}
                   <div>
-                    <Label htmlFor="studentNumber" className="text-gray-600 mb-2 block">CPUT Student Number</Label>
+                    <Label htmlFor="studentNumber" className="text-gray-600 mb-1 block text-sm">CPUT Student Number</Label>
                     <Input 
                       id="studentNumber"
                       placeholder="e.g., 219xxxxx"
-                      className="border-gray-200 focus:border-blue-500"
+                      className="border-gray-200 focus:border-blue-500 h-9"
                     />
                   </div>
 
                   {/* Year of Study */}
                   <div>
-                    <Label className="text-gray-600 mb-3 block">Year of Study</Label>
+                    <Label className="text-gray-600 mb-2 block text-sm">Year of Study</Label>
                     <div className="flex space-x-2">
                       {["1st", "2nd", "3rd"].map((year) => (
                         <button
                           key={year}
                           type="button"
                           onClick={() => setSelectedYear(year)}
-                          className={`flex-1 py-3 px-4 rounded-lg border font-medium transition-colors ${
+                          className={`flex-1 py-2 px-3 rounded-lg border font-medium transition-colors text-sm ${
                             selectedYear === year
                               ? "bg-blue-500 text-white border-blue-500"
                               : "bg-gray-50 text-gray-600 border-gray-200 hover:bg-gray-100"
@@ -120,36 +120,36 @@ const Signup = () => {
 
                   {/* Password */}
                   <div>
-                    <Label htmlFor="password" className="text-gray-600 mb-2 block">Password</Label>
+                    <Label htmlFor="password" className="text-gray-600 mb-1 block text-sm">Password</Label>
                     <Input 
                       id="password"
                       type="password"
                       placeholder="••••••••••"
-                      className="border-gray-200 focus:border-blue-500"
+                      className="border-gray-200 focus:border-blue-500 h-9"
                     />
                   </div>
 
                   {/* Confirm Password */}
                   <div>
-                    <Label htmlFor="confirmPassword" className="text-gray-600 mb-2 block">Confirm Password</Label>
+                    <Label htmlFor="confirmPassword" className="text-gray-600 mb-1 block text-sm">Confirm Password</Label>
                     <Input 
                       id="confirmPassword"
                       type="password"
                       placeholder="••••••••••"
-                      className="border-gray-200 focus:border-blue-500"
+                      className="border-gray-200 focus:border-blue-500 h-9"
                     />
                   </div>
 
                   {/* Create Button */}
                   <Button 
                     type="submit"
-                    className="w-full bg-slate-900 hover:bg-slate-800 text-white py-3 rounded-xl font-medium text-lg"
+                    className="w-full bg-slate-900 hover:bg-slate-800 text-white py-2 rounded-xl font-medium"
                   >
                     Create
                   </Button>
 
                   {/* Login Link */}
-                  <p className="text-center text-gray-600 mt-6">
+                  <p className="text-center text-gray-600 mt-4 text-sm">
                     Already have an account?{" "}
                     <a href="#" className="text-blue-500 hover:text-blue-600 font-medium">
                       Login Here
