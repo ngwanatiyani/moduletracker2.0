@@ -7,18 +7,18 @@ import { Mail, Phone } from "lucide-react";
 
 const ContactForm = () => {
   return (
-    <section className="py-20 bg-gradient-to-b from-blue-900 to-slate-900">
-      <div className="max-w-7xl mx-auto px-6">
-        <h2 className="text-4xl font-bold text-center mb-16">
+    <section id="contact" className="py-12 md:py-20 bg-gradient-to-b from-blue-900 to-slate-900">
+      <div className="max-w-7xl mx-auto px-4 md:px-6">
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 md:mb-16">
           <span className="text-yellow-400">Get In Touch</span>
         </h2>
         
-        <div className="max-w-2xl mx-auto">
+        <div className="max-w-xl md:max-w-2xl mx-auto">
           <Card className="bg-slate-800/50 border-slate-700">
             <CardHeader>
-              <CardTitle className="text-white text-center">Contact Us</CardTitle>
+              <CardTitle className="text-white text-center text-lg md:text-xl">Contact Us</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-6">
+            <CardContent className="space-y-4 md:space-y-6">
               <div>
                 <label className="text-white text-sm font-medium mb-2 block">Name *</label>
                 <Input 
@@ -39,12 +39,12 @@ const ContactForm = () => {
                 <label className="text-white text-sm font-medium mb-2 block">Message *</label>
                 <Textarea 
                   placeholder="Your message here..."
-                  rows={6}
+                  rows={4}
                   className="bg-slate-700 border-slate-600 text-white placeholder-slate-400 focus:border-blue-500 resize-none"
                 />
               </div>
               
-              <Button className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105">
+              <Button className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white py-2 md:py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105">
                 Submit
               </Button>
             </CardContent>
