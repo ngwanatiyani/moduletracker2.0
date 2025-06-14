@@ -59,98 +59,98 @@ const Signup = () => {
 
       {/* Main Content */}
       <div className="flex items-center justify-center min-h-[calc(100vh-80px)] p-4">
-        <div className="bg-white rounded-2xl shadow-2xl overflow-hidden max-w-4xl w-full">
+        <div className="bg-white rounded-2xl shadow-2xl overflow-hidden max-w-2xl w-full">
           <div className="grid lg:grid-cols-2">
             {/* Left Panel - Welcome with new image */}
-            <div className="bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 p-6 md:p-8 text-white relative overflow-hidden">
+            <div className="bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 p-3 text-white relative overflow-hidden">
               <div className="relative z-10 h-full flex flex-col justify-center">
-                <h2 className="text-xl md:text-2xl font-bold mb-3 md:mb-4">Welcome!</h2>
-                <p className="text-sm md:text-base mb-3 md:mb-4 leading-relaxed">
-                  Track your academic progress and stay on top of your studies with ModuleTracker - designed for 2nd year AppDev students.
+                <h2 className="text-base font-bold mb-2">Welcome!</h2>
+                <p className="text-xs mb-2 leading-relaxed">
+                  Track your academic progress with ModuleTracker - designed for 2nd year AppDev students.
                 </p>
-                <p className="text-blue-200 mb-4 md:mb-6 text-sm md:text-base">
-                  Your personalized dashboard is just a signup away.
+                <p className="text-blue-200 mb-3 text-xs">
+                  Your dashboard is just a signup away.
                 </p>
 
                 {/* New illustration */}
-                <div className="mt-4 md:mt-6 flex justify-center">
+                <div className="mt-2 flex justify-center">
                   <img 
                     src="/lovable-uploads/a19d6003-dcc7-41e0-b09b-a61c5a7dc7a5.png" 
                     alt="Student with academic tools and dashboard" 
-                    className="w-full max-w-xs md:max-w-sm h-auto drop-shadow-xl"
+                    className="w-full max-w-[140px] h-auto drop-shadow-xl"
                   />
                 </div>
               </div>
             </div>
 
             {/* Right Panel - Form */}
-            <div className="p-6 md:p-8">
-              <div className="max-w-sm mx-auto">
-                <h3 className="text-xl md:text-2xl font-semibold text-gray-800 mb-4 md:mb-6 text-center">Create Account</h3>
+            <div className="p-3">
+              <div className="max-w-[200px] mx-auto">
+                <h3 className="text-base font-semibold text-gray-800 mb-3 text-center">Create Account</h3>
                 
-                <form className="space-y-4" onSubmit={handleSubmit}>
+                <form className="space-y-2" onSubmit={handleSubmit}>
                   {/* Name Fields */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
+                  <div className="grid grid-cols-2 gap-1.5">
                     <div>
-                      <Label htmlFor="firstName" className="text-gray-600 mb-1 block text-sm">First Name</Label>
+                      <Label htmlFor="firstName" className="text-gray-600 mb-0.5 block text-xs">First Name</Label>
                       <Input 
                         id="firstName"
-                        placeholder="Enter your first name"
-                        className="border-gray-200 focus:border-blue-500 h-9 md:h-10 text-sm"
+                        placeholder="First name"
+                        className="border-gray-200 focus:border-blue-500 h-7 text-xs"
                       />
                     </div>
                     <div>
-                      <Label htmlFor="surname" className="text-gray-600 mb-1 block text-sm">Surname</Label>
+                      <Label htmlFor="surname" className="text-gray-600 mb-0.5 block text-xs">Surname</Label>
                       <Input 
                         id="surname"
-                        placeholder="Enter your surname"
-                        className="border-gray-200 focus:border-blue-500 h-9 md:h-10 text-sm"
+                        placeholder="Surname"
+                        className="border-gray-200 focus:border-blue-500 h-7 text-xs"
                       />
                     </div>
                   </div>
 
                   {/* Student Number */}
                   <div>
-                    <Label htmlFor="studentNumber" className="text-gray-600 mb-1 block text-sm">CPUT Student Number</Label>
+                    <Label htmlFor="studentNumber" className="text-gray-600 mb-0.5 block text-xs">Student Number</Label>
                     <Input 
                       id="studentNumber"
-                      placeholder="e.g., 219xxxxx"
-                      className="border-gray-200 focus:border-blue-500 h-9 md:h-10 text-sm"
+                      placeholder="219xxxxx"
+                      className="border-gray-200 focus:border-blue-500 h-7 text-xs"
                     />
                   </div>
 
                   {/* Password */}
                   <div>
-                    <Label htmlFor="password" className="text-gray-600 mb-1 block text-sm">Password</Label>
+                    <Label htmlFor="password" className="text-gray-600 mb-0.5 block text-xs">Password</Label>
                     <Input 
                       id="password"
                       type="password"
                       placeholder="••••••••••"
-                      className="border-gray-200 focus:border-blue-500 h-9 md:h-10 text-sm"
+                      className="border-gray-200 focus:border-blue-500 h-7 text-xs"
                     />
                   </div>
 
                   {/* Confirm Password */}
                   <div>
-                    <Label htmlFor="confirmPassword" className="text-gray-600 mb-1 block text-sm">Confirm Password</Label>
+                    <Label htmlFor="confirmPassword" className="text-gray-600 mb-0.5 block text-xs">Confirm Password</Label>
                     <Input 
                       id="confirmPassword"
                       type="password"
                       placeholder="••••••••••"
-                      className="border-gray-200 focus:border-blue-500 h-9 md:h-10 text-sm"
+                      className="border-gray-200 focus:border-blue-500 h-7 text-xs"
                     />
                   </div>
 
                   {/* Create Button */}
                   <Button 
                     type="submit"
-                    className="w-full bg-slate-900 hover:bg-slate-800 text-white py-2 md:py-3 rounded-lg font-medium text-sm md:text-base h-10 md:h-11 mt-6"
+                    className="w-full bg-slate-900 hover:bg-slate-800 text-white py-1 rounded-lg font-medium text-xs h-7 mt-3"
                   >
                     Create Account
                   </Button>
 
                   {/* Login Link */}
-                  <p className="text-center text-gray-600 mt-4 text-sm">
+                  <p className="text-center text-gray-600 mt-2 text-xs">
                     Already have an account?{" "}
                     <a href="#" className="text-blue-500 hover:text-blue-600 font-medium">
                       Login Here
