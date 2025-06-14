@@ -26,8 +26,8 @@ interface Term {
 }
 
 const Dashboard = () => {
-  const [selectedYear] = useState("1st");
-  const [selectedModule, setSelectedModule] = useState("Application Development 1");
+  const [selectedYear] = useState("2nd");
+  const [selectedModule, setSelectedModule] = useState("Application Development 2");
   const [editingAssessment, setEditingAssessment] = useState<string | null>(null);
   const [tempAssessment, setTempAssessment] = useState<Partial<Assessment>>({});
   const navigate = useNavigate();
@@ -49,36 +49,43 @@ const Dashboard = () => {
 
   const modules = getModulesForYear(selectedYear);
 
-  // Default empty state - no marks calculated initially
-  const [moduleData, setModuleData] = useState<Record<string, Term[]>>({
-    "Application Development 1": [
-      {
-        name: "Term 1",
-        weight: 30,
-        assessments: [
-          { id: "1", name: "Term Test 1", type: "Test", grade: null, weight: 15, status: 'pending' },
-          { id: "2", name: "Assignment 1", type: "Assignment", grade: null, weight: 10, status: 'pending' },
-          { id: "3", name: "Project", type: "Project", grade: null, weight: 5, status: 'pending' }
-        ]
-      },
-      {
-        name: "Term 2", 
-        weight: 30,
-        assessments: [
-          { id: "4", name: "Term Test 2", type: "Test", grade: null, weight: 15, status: 'pending' },
-          { id: "5", name: "Assignment 2", type: "Assignment", grade: null, weight: 10, status: 'pending' },
-          { id: "6", name: "Quiz", type: "Quiz", grade: null, weight: 5, status: 'pending' }
-        ]
-      },
-      {
-        name: "Term 3",
-        weight: 40,
-        assessments: [
-          { id: "7", name: "Term 3 Exam", type: "Exam", grade: null, weight: 25, status: 'pending' },
-          { id: "8", name: "Final Project", type: "Project", grade: null, weight: 15, status: 'pending' }
-        ]
-      }
-    ]
+  // Default template for all modules
+  const getDefaultModuleData = () => [
+    {
+      name: "Term 1",
+      weight: 30,
+      assessments: [
+        { id: "1", name: "Term Test 1", type: "Test", grade: null, weight: 15, status: 'pending' as const },
+        { id: "2", name: "Assignment 1", type: "Assignment", grade: null, weight: 10, status: 'pending' as const },
+        { id: "3", name: "Project", type: "Project", grade: null, weight: 5, status: 'pending' as const }
+      ]
+    },
+    {
+      name: "Term 2", 
+      weight: 30,
+      assessments: [
+        { id: "4", name: "Term Test 2", type: "Test", grade: null, weight: 15, status: 'pending' as const },
+        { id: "5", name: "Assignment 2", type: "Assignment", grade: null, weight: 10, status: 'pending' as const },
+        { id: "6", name: "Quiz", type: "Quiz", grade: null, weight: 5, status: 'pending' as const }
+      ]
+    },
+    {
+      name: "Term 3",
+      weight: 40,
+      assessments: [
+        { id: "7", name: "Term 3 Exam", type: "Exam", grade: null, weight: 25, status: 'pending' as const },
+        { id: "8", name: "Final Project", type: "Project", grade: null, weight: 15, status: 'pending' as const }
+      ]
+    }
+  ];
+
+  // Initialize all modules with default data
+  const [moduleData, setModuleData] = useState<Record<string, Term[]>>(() => {
+    const initialData: Record<string, Term[]> = {};
+    modules.forEach(module => {
+      initialData[module] = getDefaultModuleData();
+    });
+    return initialData;
   });
 
   const calculateTermAverage = (term: Term) => {
