@@ -14,55 +14,14 @@ const AboutSection = () => {
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
-          {/* Left side - Enhanced 3D Illustration inspired by the student with laptop image */}
-          <div className="relative">
-            {/* Main illustration container */}
-            <div className="relative bg-gradient-to-br from-orange-400 via-red-500 to-pink-600 rounded-3xl p-8 shadow-2xl transform rotate-3 hover:rotate-1 transition-all duration-500">
-              <div className="bg-white rounded-2xl p-6 transform -rotate-3 shadow-inner">
-                <div className="flex items-center justify-center h-64 relative">
-                  {/* Student figure representation */}
-                  <div className="relative">
-                    {/* Student body */}
-                    <div className="w-20 h-32 bg-gradient-to-b from-orange-400 to-red-500 rounded-t-full mx-auto relative">
-                      {/* Head */}
-                      <div className="w-12 h-12 bg-gradient-to-br from-amber-200 to-orange-300 rounded-full absolute -top-6 left-1/2 transform -translate-x-1/2 shadow-lg">
-                        {/* Hair */}
-                        <div className="w-10 h-8 bg-gray-800 rounded-full absolute -top-2 left-1/2 transform -translate-x-1/2"></div>
-                      </div>
-                      
-                      {/* Arms */}
-                      <div className="w-6 h-16 bg-gradient-to-b from-orange-400 to-red-500 rounded-full absolute top-4 -left-8 transform rotate-12"></div>
-                      <div className="w-6 h-16 bg-gradient-to-b from-orange-400 to-red-500 rounded-full absolute top-4 -right-8 transform -rotate-12"></div>
-                    </div>
-                    
-                    {/* Laptop/tablet representation */}
-                    <div className="w-16 h-12 bg-gradient-to-br from-gray-700 to-gray-900 rounded-lg absolute bottom-8 left-1/2 transform -translate-x-1/2 shadow-lg">
-                      <div className="w-14 h-10 bg-gradient-to-br from-blue-400 to-purple-600 rounded m-1 flex items-center justify-center">
-                        <BarChart3 className="w-6 h-6 text-white" />
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* Floating academic elements */}
-                  <div className="absolute top-4 left-4 w-8 h-8 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-lg transform rotate-12 shadow-lg">
-                    <BookOpen className="w-4 h-4 text-white m-2" />
-                  </div>
-                  <div className="absolute top-8 right-6 w-6 h-6 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full shadow-lg"></div>
-                  <div className="absolute bottom-12 right-4 w-10 h-6 bg-gradient-to-r from-green-400 to-teal-500 rounded-full shadow-lg flex items-center justify-center">
-                    <span className="text-xs text-white font-bold">A+</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            {/* Additional floating 3D elements */}
-            <div className="absolute -bottom-8 -left-8 bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl w-20 h-20 flex items-center justify-center shadow-xl transform rotate-12 animate-bounce">
-              <Users className="w-10 h-10 text-white" />
-            </div>
-            
-            {/* Academic achievement badges */}
-            <div className="absolute -top-4 right-8 w-12 h-12 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center shadow-lg animate-pulse">
-              <Target className="w-6 h-6 text-white" />
+          {/* Left side - Student illustration */}
+          <div className="relative flex justify-center items-center">
+            <div className="relative transform hover:scale-105 transition-all duration-500">
+              <img 
+                src="/lovable-uploads/06461010-69d1-45fd-9277-b158e0890339.png" 
+                alt="Student studying with books and lamp" 
+                className="w-full max-w-md h-auto drop-shadow-2xl"
+              />
             </div>
           </div>
 

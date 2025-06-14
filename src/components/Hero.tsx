@@ -54,47 +54,14 @@ const Hero = () => {
             </Link>
           </div>
           
-          {/* 3D Illustration Area - inspired by the workspace image */}
-          <div className="relative">
-            {/* Main card with 3D effect */}
-            <div className="relative bg-gradient-to-br from-purple-500 via-indigo-500 to-blue-600 rounded-3xl p-8 shadow-2xl transform perspective-1000 rotate-y-12 hover:rotate-y-6 transition-all duration-500">
-              {/* Screen/Monitor effect */}
-              <div className="bg-white rounded-2xl p-6 transform -rotate-2 shadow-inner">
-                <div className="flex items-center justify-center h-64 relative">
-                  {/* Workspace elements */}
-                  <div className="absolute top-4 left-4 w-8 h-8 bg-orange-400 rounded-lg transform rotate-12"></div>
-                  <div className="absolute top-4 right-4 w-6 h-6 bg-purple-400 rounded-full"></div>
-                  
-                  {/* Central content */}
-                  <div className="text-center space-y-4">
-                    <div className="w-16 h-16 bg-gradient-to-br from-orange-400 to-red-500 rounded-2xl mx-auto flex items-center justify-center shadow-lg">
-                      <BookOpen className="w-8 h-8 text-white" />
-                    </div>
-                    <div className="space-y-2">
-                      <div className="bg-gray-200 h-3 w-32 rounded-full mx-auto"></div>
-                      <div className="bg-gray-200 h-3 w-24 rounded-full mx-auto"></div>
-                    </div>
-                    {/* Progress bars */}
-                    <div className="space-y-2">
-                      <div className="bg-blue-100 h-4 w-40 rounded-full mx-auto relative">
-                        <div className="bg-gradient-to-r from-blue-400 to-blue-600 h-4 w-28 rounded-full"></div>
-                      </div>
-                      <div className="bg-green-100 h-4 w-36 rounded-full mx-auto relative">
-                        <div className="bg-gradient-to-r from-green-400 to-green-600 h-4 w-20 rounded-full"></div>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* Floating elements */}
-                  <div className="absolute bottom-4 left-8 w-4 h-4 bg-yellow-400 rounded transform rotate-45"></div>
-                  <div className="absolute bottom-8 right-6 w-3 h-3 bg-pink-400 rounded-full"></div>
-                </div>
-              </div>
-              
-              {/* 3D floating elements around the main card */}
-              <div className="absolute -top-6 -left-6 w-12 h-12 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-xl transform rotate-12 animate-bounce shadow-xl"></div>
-              <div className="absolute -bottom-4 -right-4 w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full animate-pulse shadow-lg"></div>
-              <div className="absolute top-1/2 -left-8 w-6 h-16 bg-gradient-to-b from-blue-400 to-blue-600 rounded-full transform -rotate-12 shadow-lg"></div>
+          {/* Modern illustration with uploaded image */}
+          <div className="relative flex justify-center items-center">
+            <div className="relative transform hover:scale-105 transition-all duration-500">
+              <img 
+                src="/lovable-uploads/fbfb04af-b44a-4394-b37b-fe59e1bac153.png" 
+                alt="Academic workspace with computer and development tools" 
+                className="w-full max-w-lg h-auto drop-shadow-2xl"
+              />
             </div>
           </div>
         </div>

@@ -89,11 +89,15 @@ const FeatureCards = () => {
           })}
         </div>
 
-        {/* Additional 3D floating elements */}
-        <div className="mt-16 flex justify-center items-center space-x-8 opacity-50">
-          <div className="w-16 h-4 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full transform rotate-12 shadow-lg"></div>
-          <div className="w-8 h-8 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full shadow-lg"></div>
-          <div className="w-12 h-6 bg-gradient-to-r from-green-400 to-teal-500 rounded-full transform -rotate-6 shadow-lg"></div>
+        {/* Hero illustration positioned at the bottom */}
+        <div className="mt-16 flex justify-center">
+          <div className="relative transform hover:scale-105 transition-all duration-500">
+            <img 
+              src="/lovable-uploads/32dd05c4-1048-4018-9ab9-63e62abb4d84.png" 
+              alt="Student with academic progress chart and checklist" 
+              className="w-full max-w-sm h-auto drop-shadow-2xl opacity-90"
+            />
+          </div>
         </div>
       </div>
     </section>
