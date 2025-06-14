@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -38,16 +39,8 @@ const Signup = () => {
       <div className="flex items-center justify-center min-h-[calc(100vh-80px)] p-6">
         <div className="bg-white rounded-2xl shadow-2xl overflow-hidden max-w-5xl w-full">
           <div className="grid lg:grid-cols-2">
-            {/* Left Panel - Welcome */}
+            {/* Left Panel - Welcome with new image */}
             <div className="bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 p-8 text-white relative overflow-hidden">
-              {/* Decorative elements */}
-              <div className="absolute top-10 left-10 w-3 h-3 bg-yellow-400 rounded-full"></div>
-              <div className="absolute top-20 right-16 w-2 h-2 bg-blue-400 rounded-full"></div>
-              <div className="absolute bottom-32 left-8 w-4 h-4 bg-orange-400 rounded-full"></div>
-              <div className="absolute bottom-16 right-12 w-2 h-2 bg-purple-400 rounded-full"></div>
-              <div className="absolute top-1/3 right-8 w-8 h-8 bg-blue-600 rounded-full opacity-70"></div>
-              <div className="absolute bottom-1/3 left-12 w-12 h-12 bg-indigo-600 rounded-full opacity-50"></div>
-
               <div className="relative z-10 h-full flex flex-col justify-center">
                 <h2 className="text-3xl font-bold mb-6">Welcome!</h2>
                 <p className="text-lg mb-4 leading-relaxed">
@@ -57,16 +50,13 @@ const Signup = () => {
                   Your personalized dashboard is just a login away.
                 </p>
 
-                {/* Illustration */}
-                <div className="mt-8 relative">
-                  <div className="bg-yellow-400 w-16 h-12 rounded-lg absolute bottom-8 left-4 transform rotate-12"></div>
-                  <div className="bg-orange-500 w-12 h-8 rounded absolute bottom-12 left-8 transform -rotate-6"></div>
-                  <div className="bg-blue-500 w-8 h-8 rounded absolute bottom-6 left-12"></div>
-                  <div className="bg-red-500 w-24 h-16 rounded-lg absolute bottom-4 right-8 transform rotate-6"></div>
-                  
-                  {/* Character illustration placeholder */}
-                  <div className="w-20 h-24 bg-orange-400 rounded-t-full absolute bottom-0 right-16"></div>
-                  <div className="w-16 h-8 bg-orange-600 rounded absolute bottom-0 right-18"></div>
+                {/* New illustration */}
+                <div className="mt-8 flex justify-center">
+                  <img 
+                    src="/lovable-uploads/a19d6003-dcc7-41e0-b09b-a61c5a7dc7a5.png" 
+                    alt="Student with academic tools and dashboard" 
+                    className="w-full max-w-sm h-auto drop-shadow-xl"
+                  />
                 </div>
               </div>
             </div>
