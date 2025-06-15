@@ -21,9 +21,12 @@ interface Message {
   text: string;
 }
 
+// Storing API keys client-side is not secure.
+// For production apps, it's recommended to handle API keys on a backend server.
+const API_KEY = 'AIzaSyC_f3s5j51VF4s_pfK_0ejhahOCRY1zg50';
+
+
 const Chatbot: React.FC = () => {
-  const [apiKey, setApiKey] = useState<string | null>(null);
-  const [tempApiKey, setTempApiKey] = useState('');
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -31,13 +34,6 @@ const Chatbot: React.FC = () => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
 
-  useEffect(() => {
-    const savedApiKey = localStorage.getItem('gemini_api_key');
-    if (savedApiKey) {
-      setApiKey(savedApiKey);
-    }
-  }, []);
-  
   useEffect(() => {
     if (isOpen && messages.length === 0) {
       setMessages([{ role: 'model', text: 'Hello! How can I help you with ModuleTracker today?' }]);
@@ -48,19 +44,9 @@ const Chatbot: React.FC = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
-  const handleSaveApiKey = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (tempApiKey) {
-      localStorage.setItem('gemini_api_key', tempApiKey);
-      setApiKey(tempApiKey);
-      setTempApiKey('');
-      toast({ title: 'API Key Saved', description: 'You can now start chatting.' });
-    }
-  };
-
   const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!input.trim() || isLoading || !apiKey) return;
+    if (!input.trim() || isLoading) return;
 
     const userMessage: Message = { role: 'user', text: input };
     setMessages(prev => [...prev, userMessage]);
@@ -68,7 +54,7 @@ const Chatbot: React.FC = () => {
     setIsLoading(true);
 
     try {
-      const genAI = new GoogleGenerativeAI(apiKey);
+      const genAI = new GoogleGenerativeAI(API_KEY);
       const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
       
       const prompt = `${systemPrompt}\n\nUser question: ${input}`;
@@ -82,7 +68,7 @@ const Chatbot: React.FC = () => {
       console.error('Chatbot error:', error);
       toast({
         title: 'Error',
-        description: 'Failed to get a response. Please check your API key and try again.',
+        description: 'Failed to get a response. The API key might be invalid or expired.',
         variant: 'destructive'
       });
       setMessages(prev => prev.slice(0, prev.length - 1));
@@ -106,31 +92,13 @@ const Chatbot: React.FC = () => {
           </DialogDescription>
         </DialogHeader>
         <div className="flex-1 overflow-y-auto p-4 space-y-4 border-t border-b">
-          {apiKey ? (
-            messages.map((msg, index) => (
-              <div key={index} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                <div className={`rounded-lg px-4 py-2 max-w-[80%] break-words ${msg.role === 'user' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-800'}`}>
-                  {msg.text}
-                </div>
+          {messages.map((msg, index) => (
+            <div key={index} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+              <div className={`rounded-lg px-4 py-2 max-w-[80%] break-words ${msg.role === 'user' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-800'}`}>
+                {msg.text}
               </div>
-            ))
-          ) : (
-            <div className="p-4 rounded-lg bg-gray-50 border">
-                <h4 className="font-semibold mb-2">Enter API Key</h4>
-                <p className="text-sm text-muted-foreground mb-4">
-                    To use the chatbot, please provide your Google Gemini API key. Storing API keys in the browser is not secure. For production apps, it's best to handle API keys on a backend server.
-                </p>
-                <form onSubmit={handleSaveApiKey} className="flex gap-2">
-                    <Input
-                        type="password"
-                        placeholder="Your Gemini API Key"
-                        value={tempApiKey}
-                        onChange={(e) => setTempApiKey(e.target.value)}
-                    />
-                    <Button type="submit">Save</Button>
-                </form>
             </div>
-          )}
+          ))}
           {isLoading && (
             <div className="flex justify-start">
                 <div className="rounded-lg px-4 py-2 bg-gray-200 text-gray-800 flex items-center">
@@ -147,9 +115,9 @@ const Chatbot: React.FC = () => {
               placeholder="Type your message..."
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              disabled={!apiKey || isLoading}
+              disabled={isLoading}
             />
-            <Button type="submit" disabled={!apiKey || isLoading || !input.trim()}>
+            <Button type="submit" disabled={isLoading || !input.trim()}>
               <Send className="h-4 w-4" />
             </Button>
           </form>
