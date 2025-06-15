@@ -1,16 +1,14 @@
+
 import { useState } from "react";
-import { GraduationCap, User, Plus, Calculator, TrendingUp, BookOpen, Award, Edit3, Save, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { GraduationCap, Calculator } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "@/hooks/use-toast";
-import StudyTips from "@/components/StudyTips";
-import TutoringBooking from "@/components/TutoringBooking";
+import ModuleSelector from "@/components/ModuleSelector";
+import UserProfile from "@/components/UserProfile";
+import ModuleOverview from "@/components/ModuleOverview";
+import TermCard from "@/components/TermCard";
+import GradeProjection from "@/components/GradeProjection";
+import AcademicSupport from "@/components/AcademicSupport";
 
 interface Assessment {
   id: string;
@@ -52,7 +50,6 @@ const Dashboard = () => {
 
   const modules = getModulesForYear(selectedYear);
 
-  // Default template for all modules
   const getDefaultModuleData = () => [
     {
       name: "Term 1",
@@ -82,7 +79,6 @@ const Dashboard = () => {
     }
   ];
 
-  // Initialize all modules with default data
   const [moduleData, setModuleData] = useState<Record<string, Term[]>>(() => {
     const initialData: Record<string, Term[]> = {};
     modules.forEach(module => {
@@ -132,7 +128,6 @@ const Dashboard = () => {
       return;
     }
 
-    // Validate grade range
     if (tempAssessment.grade !== null && tempAssessment.grade !== undefined) {
       if (tempAssessment.grade < 0 || tempAssessment.grade > 100) {
         toast({
@@ -144,7 +139,6 @@ const Dashboard = () => {
       }
     }
 
-    // Validate weight range
     if (tempAssessment.weight < 1 || tempAssessment.weight > 100) {
       toast({
         title: "Invalid Weight",
@@ -285,310 +279,57 @@ const Dashboard = () => {
       <div className="flex">
         {/* Sidebar */}
         <div className="w-64 bg-white shadow-lg min-h-[calc(100vh-80px)] p-4 animate-slide-in-right">
-          <div className="mb-6">
-            <h3 className="font-semibold text-gray-800 mb-3 flex items-center gap-2">
-              <BookOpen className="w-4 h-4" />
-              Academic Year: {selectedYear} Year
-            </h3>
-            <div className="space-y-2">
-              {modules.map((module, index) => (
-                <div 
-                  key={module}
-                  onClick={() => setSelectedModule(module)}
-                  className={`p-3 rounded-lg cursor-pointer transition-all duration-200 hover-scale ${
-                    selectedModule === module 
-                      ? 'bg-gradient-to-r from-blue-500 to-indigo-500 text-white shadow-md' 
-                      : 'bg-gray-50 hover:bg-gray-100 text-gray-700'
-                  }`}
-                >
-                  <div className="font-medium">{module}</div>
-                  {selectedModule === module && (
-                    <div className="text-xs mt-1 opacity-90">Currently Selected</div>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* User Profile */}
-          <div className="bg-gradient-to-br from-indigo-50 to-blue-50 rounded-lg p-4 mt-8 border border-blue-100">
-            <div className="flex items-center space-x-3 mb-3">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-full flex items-center justify-center shadow-md">
-                <span className="text-white font-bold">T</span>
-              </div>
-              <div>
-                <div className="font-semibold text-gray-800">Ngwana Tiyani</div>
-                <div className="text-sm text-gray-600">Student No: 24839292</div>
-              </div>
-            </div>
-            <div className="text-blue-600 text-sm font-medium flex items-center gap-1">
-              <Award className="w-3 h-3" />
-              {selectedModule}
-            </div>
-          </div>
+          <ModuleSelector
+            selectedYear={selectedYear}
+            modules={modules}
+            selectedModule={selectedModule}
+            onModuleSelect={setSelectedModule}
+          />
+          <UserProfile selectedModule={selectedModule} />
         </div>
 
         {/* Main Content */}
         <div className="flex-1 p-6 animate-fade-in">
-          {/* Module Overview Card */}
-          <Card className="mb-6 shadow-lg border-0 bg-white/80 backdrop-blur">
-            <CardHeader>
-              <div className="flex items-center justify-between">
-                <CardTitle className="text-2xl flex items-center gap-3">
-                  <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-lg flex items-center justify-center">
-                    <BookOpen className="w-5 h-5 text-white" />
-                  </div>
-                  {selectedModule}
-                </CardTitle>
-                <div className="text-right">
-                  <div className={`text-3xl font-bold ${getGradeColor(overallGrade)}`}>
-                    {overallGrade > 0 ? `${overallGrade}%` : 'No Data'}
-                  </div>
-                  <div className="text-sm text-gray-500">Overall</div>
-                </div>
-              </div>
-              <CardDescription className="text-lg">
-                Overall Progress: {overallGrade > 0 ? `${overallGrade}%` : 'No assessments completed yet'} | 
-                Status: {overallGrade >= 50 ? 'Passing' : overallGrade > 0 ? 'At Risk' : 'Not Started'}
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="relative">
-                <Progress value={overallGrade} className="h-8 bg-gray-200 overflow-hidden rounded-full shadow-inner" />
-                {overallGrade > 0 && (
-                  <>
-                    <div 
-                      className={`absolute top-0 left-0 h-8 rounded-full transition-all duration-1000 ease-out ${getProgressColor(overallGrade)}`}
-                      style={{ width: `${overallGrade}%` }}
-                    />
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-white font-semibold text-sm drop-shadow">{overallGrade}%</span>
-                    </div>
-                  </>
-                )}
-              </div>
-            </CardContent>
-          </Card>
+          <ModuleOverview
+            selectedModule={selectedModule}
+            overallGrade={overallGrade}
+            getGradeColor={getGradeColor}
+            getProgressColor={getProgressColor}
+          />
 
           {/* Terms */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-            {currentTerms.map((term, index) => {
-              const termAverage = calculateTermAverage(term);
-              const hasCompleted = term.assessments.some(a => a.status === 'completed');
-              
-              return (
-                <Card key={term.name} className={`shadow-lg transition-all duration-300 hover-scale border-0 animate-fade-in`} style={{ animationDelay: `${index * 100}ms` }}>
-                  <CardHeader className="pb-4">
-                    <CardTitle className="flex items-center justify-between">
-                      <span>{term.name}</span>
-                      <TrendingUp className="w-4 h-4 text-gray-400" />
-                    </CardTitle>
-                    <CardDescription>Weight: {term.weight}%</CardDescription>
-                  </CardHeader>
-                  <CardContent className="space-y-3">
-                    {term.assessments.map((assessment, assessmentIndex) => (
-                      <div key={assessmentIndex} className="border rounded-lg p-3 bg-gray-50">
-                        {editingAssessment === assessment.id ? (
-                          <div className="space-y-2">
-                            <div>
-                              <Label htmlFor="name" className="text-xs font-medium">Assessment Name</Label>
-                              <Input
-                                id="name"
-                                value={tempAssessment.name || ''}
-                                onChange={(e) => setTempAssessment(prev => ({ ...prev, name: e.target.value }))}
-                                className="text-sm"
-                              />
-                            </div>
-                            <div>
-                              <Label htmlFor="type" className="text-xs font-medium">Type</Label>
-                              <Input
-                                id="type"
-                                value={tempAssessment.type || ''}
-                                onChange={(e) => setTempAssessment(prev => ({ ...prev, type: e.target.value }))}
-                                className="text-sm"
-                              />
-                            </div>
-                            <div className="grid grid-cols-2 gap-2">
-                              <div>
-                                <Label htmlFor="grade" className="text-xs font-medium">Grade (%)</Label>
-                                <Input
-                                  id="grade"
-                                  type="number"
-                                  min="0"
-                                  max="100"
-                                  value={tempAssessment.grade || ''}
-                                  onChange={(e) => setTempAssessment(prev => ({ ...prev, grade: e.target.value ? Number(e.target.value) : null }))}
-                                  className="text-sm"
-                                />
-                              </div>
-                              <div>
-                                <Label htmlFor="weight" className="text-xs font-medium">Weight (%)</Label>
-                                <Input
-                                  id="weight"
-                                  type="number"
-                                  min="1"
-                                  max="100"
-                                  value={tempAssessment.weight || ''}
-                                  onChange={(e) => setTempAssessment(prev => ({ ...prev, weight: Number(e.target.value) }))}
-                                  className="text-sm"
-                                />
-                              </div>
-                            </div>
-                            <div className="flex gap-2 mt-2">
-                              <Button onClick={handleSaveAssessment} size="sm" className="flex-1">
-                                <Save className="w-3 h-3 mr-1" />
-                                Save
-                              </Button>
-                              <Button onClick={handleCancelEdit} variant="outline" size="sm" className="flex-1">
-                                <X className="w-3 h-3 mr-1" />
-                                Cancel
-                              </Button>
-                            </div>
-                          </div>
-                        ) : (
-                          <>
-                            <div className="flex justify-between items-start mb-2">
-                              <div>
-                                <div className="text-sm font-medium">{assessment.name}</div>
-                                <div className="text-xs text-gray-500">{assessment.type}</div>
-                              </div>
-                              <Button
-                                onClick={() => handleEditAssessment(assessment.id, assessment)}
-                                variant="ghost"
-                                size="sm"
-                                className="h-6 w-6 p-0"
-                              >
-                                <Edit3 className="w-3 h-3" />
-                              </Button>
-                            </div>
-                            <div className="flex justify-between items-center text-sm">
-                              <span>Grade:</span>
-                              <span className={`font-medium ${
-                                assessment.status === 'pending' 
-                                  ? 'text-gray-500' 
-                                  : getGradeColor(assessment.grade || 0)
-                              }`}>
-                                {assessment.status === 'pending' || assessment.grade === null
-                                  ? 'Not Entered' 
-                                  : `${assessment.grade}%`
-                                }
-                              </span>
-                            </div>
-                            <div className="flex justify-between items-center text-sm">
-                              <span>Weight:</span>
-                              <span className="font-medium">{assessment.weight}%</span>
-                            </div>
-                          </>
-                        )}
-                      </div>
-                    ))}
-                    <hr className="my-3" />
-                    <div className={`font-medium ${getGradeColor(termAverage)}`}>
-                      Term Average: {hasCompleted ? `${termAverage}%` : 'No Data'}
-                    </div>
-                    <div className="text-sm text-gray-600">
-                      Status: {hasCompleted ? (termAverage >= 50 ? 'Passing' : 'At Risk') : 'No Assessments Completed'}
-                    </div>
-                    <Button 
-                      variant="link" 
-                      className="text-blue-500 p-0 h-auto hover:text-blue-600 transition-colors"
-                      onClick={() => handleAddAssessment(term.name)}
-                    >
-                      <Plus className="w-3 h-3 mr-1" />
-                      Add Assessment
-                    </Button>
-                  </CardContent>
-                </Card>
-              );
-            })}
+            {currentTerms.map((term, index) => (
+              <TermCard
+                key={term.name}
+                term={term}
+                index={index}
+                calculateTermAverage={calculateTermAverage}
+                getGradeColor={getGradeColor}
+                editingAssessment={editingAssessment}
+                tempAssessment={tempAssessment}
+                onEditAssessment={handleEditAssessment}
+                onSaveAssessment={handleSaveAssessment}
+                onCancelEdit={handleCancelEdit}
+                onAddAssessment={handleAddAssessment}
+                setTempAssessment={setTempAssessment}
+              />
+            ))}
           </div>
 
           {/* Bottom Section */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {/* Grade Projection */}
-            <Card className="shadow-lg border-0 bg-gradient-to-br from-blue-50 to-indigo-50">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Calculator className="w-5 h-5 text-blue-600" />
-                  Grade Projection
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="space-y-2">
-                  <div className="flex justify-between">
-                    <span>Current Overall Grade:</span>
-                    <span className={`font-bold ${getGradeColor(overallGrade)}`}>
-                      {overallGrade > 0 ? `${overallGrade}%` : 'No Data'}
-                    </span>
-                  </div>
-                  {overallGrade > 0 ? (
-                    <>
-                      <div className="text-sm text-gray-600">
-                        Based on completed assessments
-                      </div>
-                      <div className="text-sm text-gray-600">
-                        Complete more assessments for accurate projections
-                      </div>
-                    </>
-                  ) : (
-                    <div className="text-sm text-gray-600">
-                      Enter assessment marks to see grade projections
-                    </div>
-                  )}
-                </div>
-                <Button 
-                  className="w-full bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white transition-all duration-200 transform hover:scale-105"
-                  onClick={handleCalculateRequiredMarks}
-                  disabled={overallGrade === 0}
-                >
-                  <Calculator className="w-4 h-4 mr-2" />
-                  Calculate Required Marks
-                </Button>
-              </CardContent>
-            </Card>
-
-            {/* Academic Support */}
-            <Card className="shadow-lg border-0 bg-gradient-to-br from-green-50 to-emerald-50">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Award className="w-5 h-5 text-green-600" />
-                  Academic Support
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="text-gray-600">
-                  {overallGrade === 0 
-                    ? "Start entering your assessment marks to track your progress!"
-                    : overallGrade >= 65 
-                      ? "Great progress! Keep up the excellent work!"
-                      : overallGrade >= 50 
-                        ? "You're on track. Consider reviewing study strategies."
-                        : "Consider seeking additional support to improve performance."
-                  }
-                </div>
-                <div className="grid grid-cols-2 gap-2 mt-4">
-                  <Dialog open={showStudyTips} onOpenChange={setShowStudyTips}>
-                    <DialogTrigger asChild>
-                      <Button variant="outline" size="sm" className="text-xs">
-                        Study Tips
-                      </Button>
-                    </DialogTrigger>
-                    <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
-                      <DialogHeader>
-                        <DialogTitle>Study Tips & Strategies</DialogTitle>
-                      </DialogHeader>
-                      <StudyTips />
-                    </DialogContent>
-                  </Dialog>
-                  {isStudentStruggling && <TutoringBooking />}
-                  {!isStudentStruggling && (
-                    <Button variant="outline" size="sm" className="text-xs" disabled>
-                      Tutoring (Grade ≥50%)
-                    </Button>
-                  )}
-                </div>
-              </CardContent>
-            </Card>
+            <GradeProjection
+              overallGrade={overallGrade}
+              getGradeColor={getGradeColor}
+              onCalculateRequiredMarks={handleCalculateRequiredMarks}
+            />
+            <AcademicSupport
+              overallGrade={overallGrade}
+              isStudentStruggling={isStudentStruggling}
+              showStudyTips={showStudyTips}
+              setShowStudyTips={setShowStudyTips}
+            />
           </div>
         </div>
       </div>
