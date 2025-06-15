@@ -73,7 +73,7 @@ const TermCard: React.FC<TermCardProps> = ({
                   <Input
                     id="name"
                     value={tempAssessment.name || ''}
-                    onChange={(e) => setTempAssessment(prev => ({ ...prev, name: e.target.value }))}
+                    onChange={(e) => setTempAssessment({ ...tempAssessment, name: e.target.value })}
                     className="text-sm"
                   />
                 </div>
@@ -82,7 +82,7 @@ const TermCard: React.FC<TermCardProps> = ({
                   <Input
                     id="type"
                     value={tempAssessment.type || ''}
-                    onChange={(e) => setTempAssessment(prev => ({ ...prev, type: e.target.value }))}
+                    onChange={(e) => setTempAssessment({ ...tempAssessment, type: e.target.value })}
                     className="text-sm"
                   />
                 </div>
@@ -95,7 +95,7 @@ const TermCard: React.FC<TermCardProps> = ({
                       min="0"
                       max="100"
                       value={tempAssessment.grade || ''}
-                      onChange={(e) => setTempAssessment(prev => ({ ...prev, grade: e.target.value ? Number(e.target.value) : null }))}
+                      onChange={(e) => setTempAssessment({ ...tempAssessment, grade: e.target.value ? Number(e.target.value) : null })}
                       className="text-sm"
                     />
                   </div>
@@ -107,7 +107,7 @@ const TermCard: React.FC<TermCardProps> = ({
                       min="1"
                       max="100"
                       value={tempAssessment.weight || ''}
-                      onChange={(e) => setTempAssessment(prev => ({ ...prev, weight: Number(e.target.value) }))}
+                      onChange={(e) => setTempAssessment({ ...tempAssessment, weight: Number(e.target.value) })}
                       className="text-sm"
                     />
                   </div>
