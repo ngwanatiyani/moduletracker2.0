@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { GraduationCap, Calculator } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
@@ -9,6 +8,7 @@ import ModuleOverview from "@/components/ModuleOverview";
 import TermCard from "@/components/TermCard";
 import GradeProjection from "@/components/GradeProjection";
 import AcademicSupport from "@/components/AcademicSupport";
+import Chatbot from "@/components/Chatbot";
 
 interface Assessment {
   id: string;
@@ -334,6 +334,7 @@ const Dashboard = () => {
         </div>
       </div>
 
+      <Chatbot />
       {/* Footer */}
       <footer className="bg-slate-900 text-center py-4">
         <p className="text-gray-400">© 2025 ModuleTracker - Ngwana-Tiyani</p>
