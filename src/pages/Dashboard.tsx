@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { GraduationCap, User, Plus, Calculator, TrendingUp, BookOpen, Award, Edit3, Save, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -7,8 +6,11 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "@/hooks/use-toast";
+import StudyTips from "@/components/StudyTips";
+import TutoringBooking from "@/components/TutoringBooking";
 
 interface Assessment {
   id: string;
@@ -30,6 +32,7 @@ const Dashboard = () => {
   const [selectedModule, setSelectedModule] = useState("Application Development 2");
   const [editingAssessment, setEditingAssessment] = useState<string | null>(null);
   const [tempAssessment, setTempAssessment] = useState<Partial<Assessment>>({});
+  const [showStudyTips, setShowStudyTips] = useState(false);
   const navigate = useNavigate();
   
   const getModulesForYear = (year: string) => {
@@ -129,6 +132,28 @@ const Dashboard = () => {
       return;
     }
 
+    // Validate grade range
+    if (tempAssessment.grade !== null && tempAssessment.grade !== undefined) {
+      if (tempAssessment.grade < 0 || tempAssessment.grade > 100) {
+        toast({
+          title: "Invalid Grade",
+          description: "Grade must be between 0 and 100.",
+          variant: "destructive"
+        });
+        return;
+      }
+    }
+
+    // Validate weight range
+    if (tempAssessment.weight < 1 || tempAssessment.weight > 100) {
+      toast({
+        title: "Invalid Weight",
+        description: "Weight must be between 1 and 100.",
+        variant: "destructive"
+      });
+      return;
+    }
+
     setModuleData(prev => {
       const newData = { ...prev };
       const terms = newData[selectedModule];
@@ -219,6 +244,7 @@ const Dashboard = () => {
 
   const overallGrade = calculateOverallGrade();
   const currentTerms = moduleData[selectedModule] || [];
+  const isStudentStruggling = overallGrade > 0 && overallGrade < 50;
 
   const getGradeColor = (grade: number) => {
     if (grade >= 75) return "text-green-600";
@@ -541,12 +567,25 @@ const Dashboard = () => {
                   }
                 </div>
                 <div className="grid grid-cols-2 gap-2 mt-4">
-                  <Button variant="outline" size="sm" className="text-xs">
-                    Study Tips
-                  </Button>
-                  <Button variant="outline" size="sm" className="text-xs">
-                    Tutoring
-                  </Button>
+                  <Dialog open={showStudyTips} onOpenChange={setShowStudyTips}>
+                    <DialogTrigger asChild>
+                      <Button variant="outline" size="sm" className="text-xs">
+                        Study Tips
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+                      <DialogHeader>
+                        <DialogTitle>Study Tips & Strategies</DialogTitle>
+                      </DialogHeader>
+                      <StudyTips />
+                    </DialogContent>
+                  </Dialog>
+                  {isStudentStruggling && <TutoringBooking />}
+                  {!isStudentStruggling && (
+                    <Button variant="outline" size="sm" className="text-xs" disabled>
+                      Tutoring (Grade ≥50%)
+                    </Button>
+                  )}
                 </div>
               </CardContent>
             </Card>
