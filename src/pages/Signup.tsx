@@ -5,16 +5,74 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { GraduationCap, Menu, X } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
+import { useToast } from "@/hooks/use-toast";
 
 const Signup = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    firstName: "",
+    surname: "",
+    studentNumber: "",
+    password: "",
+    confirmPassword: ""
+  });
+  const [isLoading, setIsLoading] = useState(false);
+  
   const navigate = useNavigate();
+  const { signup } = useAuth();
+  const { toast } = useToast();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData(prev => ({
+      ...prev,
+      [e.target.id]: e.target.value
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you would normally handle the account creation
-    // For now, we'll just redirect to the dashboard
-    navigate("/dashboard");
+    setIsLoading(true);
+
+    // Validate all fields are filled
+    if (!formData.firstName || !formData.surname || !formData.studentNumber || !formData.password || !formData.confirmPassword) {
+      toast({
+        title: "Error",
+        description: "Please fill in all fields",
+        variant: "destructive",
+      });
+      setIsLoading(false);
+      return;
+    }
+
+    // Validate passwords match
+    if (formData.password !== formData.confirmPassword) {
+      toast({
+        title: "Error",
+        description: "Passwords do not match",
+        variant: "destructive",
+      });
+      setIsLoading(false);
+      return;
+    }
+
+    const success = await signup(formData);
+    
+    if (success) {
+      toast({
+        title: "Success",
+        description: "Account created successfully!",
+      });
+      navigate("/dashboard");
+    } else {
+      toast({
+        title: "Error",
+        description: "Failed to create account. Student number may already exist.",
+        variant: "destructive",
+      });
+    }
+    
+    setIsLoading(false);
   };
 
   return (
@@ -32,7 +90,7 @@ const Signup = () => {
             <Link to="/" className="hover:text-yellow-400 transition-colors">Home</Link>
             <Link to="/" className="hover:text-yellow-400 transition-colors">About</Link>
             <Link to="/" className="hover:text-yellow-400 transition-colors">Contact</Link>
-            <span className="text-blue-400 font-medium">Login</span>
+            <Link to="/login" className="text-blue-400 font-medium hover:text-blue-300 transition-colors">Login</Link>
           </div>
 
           {/* Mobile Hamburger Button */}
@@ -50,7 +108,7 @@ const Signup = () => {
                 <Link to="/" onClick={() => setIsMenuOpen(false)} className="text-white hover:text-yellow-400 transition-colors">Home</Link>
                 <Link to="/" onClick={() => setIsMenuOpen(false)} className="text-white hover:text-yellow-400 transition-colors">About</Link>
                 <Link to="/" onClick={() => setIsMenuOpen(false)} className="text-white hover:text-yellow-400 transition-colors">Contact</Link>
-                <span className="text-blue-400 font-medium">Login</span>
+                <Link to="/login" onClick={() => setIsMenuOpen(false)} className="text-blue-400 font-medium hover:text-blue-300 transition-colors">Login</Link>
               </div>
             </div>
           )}
@@ -95,16 +153,22 @@ const Signup = () => {
                       <Label htmlFor="firstName" className="text-gray-600 mb-0.5 block text-xs">First Name</Label>
                       <Input 
                         id="firstName"
+                        value={formData.firstName}
+                        onChange={handleChange}
                         placeholder="First name"
                         className="border-gray-200 focus:border-blue-500 h-7 text-xs"
+                        required
                       />
                     </div>
                     <div>
                       <Label htmlFor="surname" className="text-gray-600 mb-0.5 block text-xs">Surname</Label>
                       <Input 
                         id="surname"
+                        value={formData.surname}
+                        onChange={handleChange}
                         placeholder="Surname"
                         className="border-gray-200 focus:border-blue-500 h-7 text-xs"
+                        required
                       />
                     </div>
                   </div>
@@ -114,8 +178,11 @@ const Signup = () => {
                     <Label htmlFor="studentNumber" className="text-gray-600 mb-0.5 block text-xs">Student Number</Label>
                     <Input 
                       id="studentNumber"
+                      value={formData.studentNumber}
+                      onChange={handleChange}
                       placeholder="219xxxxx"
                       className="border-gray-200 focus:border-blue-500 h-7 text-xs"
+                      required
                     />
                   </div>
 
@@ -125,8 +192,11 @@ const Signup = () => {
                     <Input 
                       id="password"
                       type="password"
+                      value={formData.password}
+                      onChange={handleChange}
                       placeholder="••••••••••"
                       className="border-gray-200 focus:border-blue-500 h-7 text-xs"
+                      required
                     />
                   </div>
 
@@ -136,25 +206,29 @@ const Signup = () => {
                     <Input 
                       id="confirmPassword"
                       type="password"
+                      value={formData.confirmPassword}
+                      onChange={handleChange}
                       placeholder="••••••••••"
                       className="border-gray-200 focus:border-blue-500 h-7 text-xs"
+                      required
                     />
                   </div>
 
                   {/* Create Button */}
                   <Button 
                     type="submit"
+                    disabled={isLoading}
                     className="w-full bg-slate-900 hover:bg-slate-800 text-white py-1 rounded-lg font-medium text-xs h-7 mt-3"
                   >
-                    Create Account
+                    {isLoading ? "Creating..." : "Create Account"}
                   </Button>
 
                   {/* Login Link */}
                   <p className="text-center text-gray-600 mt-2 text-xs">
                     Already have an account?{" "}
-                    <a href="#" className="text-blue-500 hover:text-blue-600 font-medium">
+                    <Link to="/login" className="text-blue-500 hover:text-blue-600 font-medium">
                       Login Here
-                    </a>
+                    </Link>
                   </p>
                 </form>
               </div>
