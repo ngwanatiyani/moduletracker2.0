@@ -31,6 +31,7 @@ const Dashboard = () => {
   const [editingAssessment, setEditingAssessment] = useState<string | null>(null);
   const [tempAssessment, setTempAssessment] = useState<Partial<Assessment>>({});
   const [showStudyTips, setShowStudyTips] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const navigate = useNavigate();
   
   const getModulesForYear = (year: string) => {
@@ -255,15 +256,15 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 w-full overflow-x-hidden">
       {/* Navigation */}
-      <nav className="bg-slate-900 text-white p-4 shadow-lg">
+      <nav className="bg-slate-900 text-white p-4 shadow-lg relative z-50">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center space-x-2 animate-fade-in">
-            <GraduationCap className="w-8 h-8 text-yellow-400" />
-            <span className="text-xl font-bold text-yellow-400">ModuleTracker</span>
+            <GraduationCap className="w-6 h-6 md:w-8 md:h-8 text-yellow-400" />
+            <span className="text-lg md:text-xl font-bold text-yellow-400">ModuleTracker</span>
           </div>
-          <div className="flex items-center space-x-6">
+          <div className="hidden md:flex items-center space-x-6">
             <Link to="/" className="hover:text-yellow-400 transition-colors duration-200">Home</Link>
             <span className="text-blue-400 font-medium">Dashboard</span>
             <button 
@@ -273,23 +274,60 @@ const Dashboard = () => {
               Logout
             </button>
           </div>
+          {/* Mobile menu button */}
+          <button
+            className="md:hidden text-white"
+            onClick={() => setSidebarOpen(!sidebarOpen)}
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
         </div>
       </nav>
 
-      <div className="flex">
+      <div className="flex relative">
+        {/* Mobile Sidebar Overlay */}
+        {sidebarOpen && (
+          <div 
+            className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
+            onClick={() => setSidebarOpen(false)}
+          />
+        )}
+
         {/* Sidebar */}
-        <div className="w-64 bg-white shadow-lg min-h-[calc(100vh-80px)] p-4 animate-slide-in-right">
+        <div className={`
+          fixed md:sticky top-0 left-0 z-50 md:z-auto
+          w-80 md:w-64 bg-white shadow-lg min-h-screen p-4
+          transform transition-transform duration-300 ease-in-out
+          ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
+          md:translate-x-0 md:min-h-[calc(100vh-80px)]
+          overflow-y-auto
+        `}>
+          {/* Close button for mobile */}
+          <button
+            className="md:hidden absolute top-4 right-4 text-gray-500 hover:text-gray-700"
+            onClick={() => setSidebarOpen(false)}
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+          
           <ModuleSelector
             selectedYear={selectedYear}
             modules={modules}
             selectedModule={selectedModule}
-            onModuleSelect={setSelectedModule}
+            onModuleSelect={(module) => {
+              setSelectedModule(module);
+              setSidebarOpen(false); // Close sidebar on mobile after selection
+            }}
           />
           <UserProfile selectedModule={selectedModule} />
         </div>
 
         {/* Main Content */}
-        <div className="flex-1 p-6 animate-fade-in">
+        <div className="flex-1 p-4 md:p-6 animate-fade-in max-w-full">
           <ModuleOverview
             selectedModule={selectedModule}
             overallGrade={overallGrade}
@@ -298,7 +336,7 @@ const Dashboard = () => {
           />
 
           {/* Terms */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+          <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 md:gap-6 mb-6">
             {currentTerms.map((term, index) => (
               <TermCard
                 key={term.name}
@@ -318,7 +356,7 @@ const Dashboard = () => {
           </div>
 
           {/* Bottom Section */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 md:gap-6">
             <GradeProjection
               overallGrade={overallGrade}
               getGradeColor={getGradeColor}
@@ -337,7 +375,7 @@ const Dashboard = () => {
       <Chatbot />
       {/* Footer */}
       <footer className="bg-slate-900 text-center py-4">
-        <p className="text-gray-400">© 2025 ModuleTracker - Ngwana-Tiyani</p>
+        <p className="text-gray-400 text-sm">© 2025 ModuleTracker - Ngwana-Tiyani</p>
       </footer>
     </div>
   );

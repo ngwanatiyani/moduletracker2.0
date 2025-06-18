@@ -76,9 +76,9 @@ const Signup = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 w-full overflow-x-hidden">
       {/* Navigation */}
-      <nav className="bg-slate-900 text-white p-4">
+      <nav className="bg-slate-900 text-white p-4 relative z-50">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <Link to="/" className="flex items-center space-x-2">
             <GraduationCap className="w-6 h-6 md:w-8 md:h-8 text-yellow-400" />
@@ -100,74 +100,74 @@ const Signup = () => {
           >
             {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
-
-          {/* Mobile Navigation Menu */}
-          {isMenuOpen && (
-            <div className="absolute top-full left-0 right-0 bg-slate-900/95 backdrop-blur-sm md:hidden z-50">
-              <div className="flex flex-col space-y-4 p-6">
-                <Link to="/" onClick={() => setIsMenuOpen(false)} className="text-white hover:text-yellow-400 transition-colors">Home</Link>
-                <Link to="/" onClick={() => setIsMenuOpen(false)} className="text-white hover:text-yellow-400 transition-colors">About</Link>
-                <Link to="/" onClick={() => setIsMenuOpen(false)} className="text-white hover:text-yellow-400 transition-colors">Contact</Link>
-                <Link to="/login" onClick={() => setIsMenuOpen(false)} className="text-blue-400 font-medium hover:text-blue-300 transition-colors">Login</Link>
-              </div>
-            </div>
-          )}
         </div>
+
+        {/* Mobile Navigation Menu */}
+        {isMenuOpen && (
+          <div className="absolute top-full left-0 right-0 bg-slate-900/95 backdrop-blur-sm md:hidden z-50">
+            <div className="flex flex-col space-y-4 p-6">
+              <Link to="/" onClick={() => setIsMenuOpen(false)} className="text-white hover:text-yellow-400 transition-colors">Home</Link>
+              <Link to="/" onClick={() => setIsMenuOpen(false)} className="text-white hover:text-yellow-400 transition-colors">About</Link>
+              <Link to="/" onClick={() => setIsMenuOpen(false)} className="text-white hover:text-yellow-400 transition-colors">Contact</Link>
+              <Link to="/login" onClick={() => setIsMenuOpen(false)} className="text-blue-400 font-medium hover:text-blue-300 transition-colors">Login</Link>
+            </div>
+          </div>
+        )}
       </nav>
 
       {/* Main Content */}
       <div className="flex items-center justify-center min-h-[calc(100vh-80px)] p-4">
-        <div className="bg-white rounded-2xl shadow-2xl overflow-hidden max-w-2xl w-full">
-          <div className="grid lg:grid-cols-2">
+        <div className="bg-white rounded-2xl shadow-2xl overflow-hidden w-full max-w-4xl">
+          <div className="grid grid-cols-1 lg:grid-cols-2">
             {/* Left Panel - Welcome with new image */}
-            <div className="bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 p-3 text-white relative overflow-hidden">
+            <div className="bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 p-6 md:p-8 text-white relative overflow-hidden">
               <div className="relative z-10 h-full flex flex-col justify-center">
-                <h2 className="text-base font-bold mb-2">Welcome!</h2>
-                <p className="text-xs mb-2 leading-relaxed">
+                <h2 className="text-xl md:text-2xl font-bold mb-4">Welcome!</h2>
+                <p className="text-sm md:text-base mb-4 leading-relaxed">
                   Track your academic progress with ModuleTracker - designed for 2nd year AppDev students.
                 </p>
-                <p className="text-blue-200 mb-3 text-xs">
+                <p className="text-blue-200 mb-6 text-sm md:text-base">
                   Your dashboard is just a signup away.
                 </p>
 
                 {/* New illustration */}
-                <div className="mt-2 flex justify-center">
+                <div className="mt-4 flex justify-center">
                   <img 
                     src="/lovable-uploads/a19d6003-dcc7-41e0-b09b-a61c5a7dc7a5.png" 
                     alt="Student with academic tools and dashboard" 
-                    className="w-full max-w-[140px] h-auto drop-shadow-xl"
+                    className="w-full max-w-[200px] md:max-w-[250px] h-auto drop-shadow-xl"
                   />
                 </div>
               </div>
             </div>
 
             {/* Right Panel - Form */}
-            <div className="p-3">
-              <div className="max-w-[200px] mx-auto">
-                <h3 className="text-base font-semibold text-gray-800 mb-3 text-center">Create Account</h3>
+            <div className="p-6 md:p-8">
+              <div className="max-w-sm mx-auto">
+                <h3 className="text-xl md:text-2xl font-semibold text-gray-800 mb-6 text-center">Create Account</h3>
                 
-                <form className="space-y-2" onSubmit={handleSubmit}>
+                <form className="space-y-4" onSubmit={handleSubmit}>
                   {/* Name Fields */}
-                  <div className="grid grid-cols-2 gap-1.5">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <Label htmlFor="firstName" className="text-gray-600 mb-0.5 block text-xs">First Name</Label>
+                      <Label htmlFor="firstName" className="text-gray-600 mb-2 block text-sm">First Name</Label>
                       <Input 
                         id="firstName"
                         value={formData.firstName}
                         onChange={handleChange}
                         placeholder="First name"
-                        className="border-gray-200 focus:border-blue-500 h-7 text-xs"
+                        className="border-gray-200 focus:border-blue-500 h-10 text-sm w-full"
                         required
                       />
                     </div>
                     <div>
-                      <Label htmlFor="surname" className="text-gray-600 mb-0.5 block text-xs">Surname</Label>
+                      <Label htmlFor="surname" className="text-gray-600 mb-2 block text-sm">Surname</Label>
                       <Input 
                         id="surname"
                         value={formData.surname}
                         onChange={handleChange}
                         placeholder="Surname"
-                        className="border-gray-200 focus:border-blue-500 h-7 text-xs"
+                        className="border-gray-200 focus:border-blue-500 h-10 text-sm w-full"
                         required
                       />
                     </div>
@@ -175,41 +175,41 @@ const Signup = () => {
 
                   {/* Student Number */}
                   <div>
-                    <Label htmlFor="studentNumber" className="text-gray-600 mb-0.5 block text-xs">Student Number</Label>
+                    <Label htmlFor="studentNumber" className="text-gray-600 mb-2 block text-sm">Student Number</Label>
                     <Input 
                       id="studentNumber"
                       value={formData.studentNumber}
                       onChange={handleChange}
                       placeholder="219xxxxx"
-                      className="border-gray-200 focus:border-blue-500 h-7 text-xs"
+                      className="border-gray-200 focus:border-blue-500 h-10 text-sm w-full"
                       required
                     />
                   </div>
 
                   {/* Password */}
                   <div>
-                    <Label htmlFor="password" className="text-gray-600 mb-0.5 block text-xs">Password</Label>
+                    <Label htmlFor="password" className="text-gray-600 mb-2 block text-sm">Password</Label>
                     <Input 
                       id="password"
                       type="password"
                       value={formData.password}
                       onChange={handleChange}
                       placeholder="••••••••••"
-                      className="border-gray-200 focus:border-blue-500 h-7 text-xs"
+                      className="border-gray-200 focus:border-blue-500 h-10 text-sm w-full"
                       required
                     />
                   </div>
 
                   {/* Confirm Password */}
                   <div>
-                    <Label htmlFor="confirmPassword" className="text-gray-600 mb-0.5 block text-xs">Confirm Password</Label>
+                    <Label htmlFor="confirmPassword" className="text-gray-600 mb-2 block text-sm">Confirm Password</Label>
                     <Input 
                       id="confirmPassword"
                       type="password"
                       value={formData.confirmPassword}
                       onChange={handleChange}
                       placeholder="••••••••••"
-                      className="border-gray-200 focus:border-blue-500 h-7 text-xs"
+                      className="border-gray-200 focus:border-blue-500 h-10 text-sm w-full"
                       required
                     />
                   </div>
@@ -218,13 +218,13 @@ const Signup = () => {
                   <Button 
                     type="submit"
                     disabled={isLoading}
-                    className="w-full bg-slate-900 hover:bg-slate-800 text-white py-1 rounded-lg font-medium text-xs h-7 mt-3"
+                    className="w-full bg-slate-900 hover:bg-slate-800 text-white py-2 rounded-lg font-medium text-sm h-10 mt-6"
                   >
                     {isLoading ? "Creating..." : "Create Account"}
                   </Button>
 
                   {/* Login Link */}
-                  <p className="text-center text-gray-600 mt-2 text-xs">
+                  <p className="text-center text-gray-600 mt-4 text-sm">
                     Already have an account?{" "}
                     <Link to="/login" className="text-blue-500 hover:text-blue-600 font-medium">
                       Login Here
