@@ -9,11 +9,14 @@ interface NavigationBarProps {
   onLogout: () => void;
 }
 
+// This component is kept for backward compatibility but should be replaced with ScrollAdaptiveNav
 const NavigationBar: React.FC<NavigationBarProps> = ({
   sidebarOpen,
   setSidebarOpen,
   onLogout
 }) => {
+  console.warn('NavigationBar is deprecated. Use ScrollAdaptiveNav instead.');
+  
   return (
     <nav className="bg-white/80 backdrop-blur-lg border-b border-slate-200/50 text-slate-800 p-4 sticky top-0 z-50 shadow-sm">
       <div className="max-w-7xl mx-auto flex items-center justify-between">

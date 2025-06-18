@@ -1,9 +1,8 @@
 
-import NavigationBar from "@/components/NavigationBar";
-import MobileSidebar from "@/components/MobileSidebar";
+import React from 'react';
+import OptimizedLayout from '@/components/layout/OptimizedLayout';
 import DashboardContent from "@/components/DashboardContent";
-import DashboardFooter from "@/components/DashboardFooter";
-import Chatbot from "@/components/Chatbot";
+import MobileSidebar from "@/components/MobileSidebar";
 import { useDashboardState } from "@/hooks/useDashboardState";
 
 const Dashboard = () => {
@@ -37,13 +36,11 @@ const Dashboard = () => {
   const isStudentStruggling = overallGrade > 0 && overallGrade < 50;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 w-full overflow-x-hidden">
-      <NavigationBar
-        sidebarOpen={sidebarOpen}
-        setSidebarOpen={setSidebarOpen}
-        onLogout={handleLogout}
-      />
-
+    <OptimizedLayout
+      sidebarOpen={sidebarOpen}
+      setSidebarOpen={setSidebarOpen}
+      onLogout={handleLogout}
+    >
       <div className="flex relative min-h-screen">
         <MobileSidebar
           sidebarOpen={sidebarOpen}
@@ -74,10 +71,7 @@ const Dashboard = () => {
           setShowStudyTips={setShowStudyTips}
         />
       </div>
-
-      <Chatbot />
-      <DashboardFooter />
-    </div>
+    </OptimizedLayout>
   );
 };
 
