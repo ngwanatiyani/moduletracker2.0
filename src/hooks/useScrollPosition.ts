@@ -1,30 +1,38 @@
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 export const useScrollPosition = () => {
   const [scrollY, setScrollY] = useState(0);
 
+  const updateScrollY = useCallback(() => {
+    setScrollY(window.scrollY);
+  }, []);
+
   useEffect(() => {
     let ticking = false;
 
-    const updateScrollY = () => {
-      setScrollY(window.scrollY);
-      ticking = false;
-    };
-
-    const requestTick = () => {
+    const handleScroll = () => {
       if (!ticking) {
-        requestAnimationFrame(updateScrollY);
+        requestAnimationFrame(() => {
+          updateScrollY();
+          ticking = false;
+        });
         ticking = true;
       }
     };
 
-    const handleScroll = () => requestTick();
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    // Initial scroll position
+    updateScrollY();
     
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    window.addEventListener('scroll', handleScroll, { 
+      passive: true,
+      capture: false 
+    });
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [updateScrollY]);
 
   return scrollY;
 };

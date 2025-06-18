@@ -3,11 +3,9 @@ import React, { Suspense, lazy } from 'react';
 import ScrollAdaptiveNav from '@/components/navigation/ScrollAdaptiveNav';
 import { Skeleton } from '@/components/ui/skeleton';
 
-// Lazy load heavy components
+// Lazy load components for better performance
 const MobileSidebar = lazy(() => import('@/components/MobileSidebar'));
-const DashboardContent = lazy(() => import('@/components/DashboardContent'));
 const Chatbot = lazy(() => import('@/components/Chatbot'));
-const DashboardFooter = lazy(() => import('@/components/DashboardFooter'));
 
 interface OptimizedLayoutProps {
   children: React.ReactNode;
@@ -27,23 +25,23 @@ const OptimizedLayout: React.FC<OptimizedLayoutProps> = ({
   showChatbot = true
 }) => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 w-full overflow-x-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/50 w-full overflow-x-hidden">
       <ScrollAdaptiveNav
         sidebarOpen={sidebarOpen}
         setSidebarOpen={setSidebarOpen}
         onLogout={onLogout}
       />
 
-      {/* Add top padding to account for fixed navigation */}
-      <div className="pt-16 lg:pt-20">
+      {/* Responsive top padding */}
+      <div className="pt-12 sm:pt-14 lg:pt-16 xl:pt-18">
         <div className="flex relative min-h-screen">
           {showSidebar && (
             <Suspense fallback={
-              <div className="fixed lg:sticky top-16 lg:top-20 left-0 z-50 w-80 sm:w-72 lg:w-80 xl:w-72 bg-white/90 backdrop-blur-lg shadow-xl border-r border-slate-200/50 min-h-screen p-4">
-                <Skeleton className="h-8 w-3/4 mb-4" />
+              <div className="fixed lg:sticky top-12 sm:top-14 lg:top-16 xl:top-18 left-0 z-40 w-72 sm:w-80 lg:w-72 xl:w-80 bg-white/90 backdrop-blur-lg shadow-xl border-r border-slate-200/50 min-h-screen p-3 sm:p-4">
+                <Skeleton className="h-6 sm:h-8 w-3/4 mb-3 sm:mb-4" />
                 <div className="space-y-2">
                   {Array.from({ length: 5 }).map((_, i) => (
-                    <Skeleton key={i} className="h-12 w-full" />
+                    <Skeleton key={i} className="h-10 sm:h-12 w-full" />
                   ))}
                 </div>
               </div>
@@ -59,13 +57,14 @@ const OptimizedLayout: React.FC<OptimizedLayoutProps> = ({
             </Suspense>
           )}
 
-          <main className="flex-1 min-h-screen">
+          <main className="flex-1 min-h-screen w-full max-w-full">
             <Suspense fallback={
-              <div className="p-6 space-y-6">
-                <Skeleton className="h-12 w-1/2" />
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                  <Skeleton className="h-64" />
-                  <Skeleton className="h-64" />
+              <div className="p-3 sm:p-4 lg:p-6 xl:p-8 space-y-4 sm:space-y-6">
+                <Skeleton className="h-8 sm:h-10 lg:h-12 w-1/2" />
+                <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-3 sm:gap-4 lg:gap-6">
+                  <Skeleton className="h-48 sm:h-56 lg:h-64" />
+                  <Skeleton className="h-48 sm:h-56 lg:h-64" />
+                  <Skeleton className="h-48 sm:h-56 lg:h-64 hidden xl:block" />
                 </div>
               </div>
             }>
@@ -80,14 +79,6 @@ const OptimizedLayout: React.FC<OptimizedLayoutProps> = ({
           <Chatbot />
         </Suspense>
       )}
-
-      <Suspense fallback={
-        <div className="bg-white/80 backdrop-blur-lg border-t border-slate-200/50 p-6">
-          <Skeleton className="h-4 w-1/3 mx-auto" />
-        </div>
-      }>
-        <DashboardFooter />
-      </Suspense>
     </div>
   );
 };

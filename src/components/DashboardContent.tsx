@@ -46,47 +46,57 @@ const DashboardContent: React.FC<DashboardContentProps> = ({
   setShowStudyTips
 }) => {
   return (
-    <div className="flex-1 p-3 sm:p-4 lg:p-6 xl:p-8 animate-fade-in max-w-full min-h-screen">
-      <ModuleOverview
-        selectedModule={selectedModule}
-        overallGrade={overallGrade}
-        getGradeColor={getGradeColor}
-        getProgressColor={getProgressColor}
-      />
-
-      {/* Responsive Terms Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
-        {currentTerms.map((term, index) => (
-          <TermCard
-            key={term.name}
-            term={term}
-            index={index}
-            calculateTermAverage={calculateTermAverage}
+    <div className="flex-1 w-full max-w-full">
+      <div className="p-3 sm:p-4 md:p-6 lg:p-8 xl:p-10 animate-fade-in space-y-4 sm:space-y-6 lg:space-y-8">
+        {/* Module Overview with better spacing */}
+        <div className="w-full">
+          <ModuleOverview
+            selectedModule={selectedModule}
+            overallGrade={overallGrade}
             getGradeColor={getGradeColor}
-            editingAssessment={editingAssessment}
-            tempAssessment={tempAssessment}
-            onEditAssessment={onEditAssessment}
-            onSaveAssessment={onSaveAssessment}
-            onCancelEdit={onCancelEdit}
-            onAddAssessment={onAddAssessment}
-            setTempAssessment={setTempAssessment}
+            getProgressColor={getProgressColor}
           />
-        ))}
-      </div>
+        </div>
 
-      {/* Responsive Bottom Section */}
-      <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 sm:gap-6">
-        <GradeProjection
-          overallGrade={overallGrade}
-          getGradeColor={getGradeColor}
-          onCalculateRequiredMarks={onCalculateRequiredMarks}
-        />
-        <AcademicSupport
-          overallGrade={overallGrade}
-          isStudentStruggling={isStudentStruggling}
-          showStudyTips={showStudyTips}
-          setShowStudyTips={setShowStudyTips}
-        />
+        {/* Responsive Terms Grid with improved layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-3 sm:gap-4 md:gap-5 lg:gap-6">
+          {currentTerms.map((term, index) => (
+            <div key={term.name} className="w-full">
+              <TermCard
+                term={term}
+                index={index}
+                calculateTermAverage={calculateTermAverage}
+                getGradeColor={getGradeColor}
+                editingAssessment={editingAssessment}
+                tempAssessment={tempAssessment}
+                onEditAssessment={onEditAssessment}
+                onSaveAssessment={onSaveAssessment}
+                onCancelEdit={onCancelEdit}
+                onAddAssessment={onAddAssessment}
+                setTempAssessment={setTempAssessment}
+              />
+            </div>
+          ))}
+        </div>
+
+        {/* Bottom Section with improved responsive grid */}
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 sm:gap-5 md:gap-6 lg:gap-8">
+          <div className="w-full">
+            <GradeProjection
+              overallGrade={overallGrade}
+              getGradeColor={getGradeColor}
+              onCalculateRequiredMarks={onCalculateRequiredMarks}
+            />
+          </div>
+          <div className="w-full">
+            <AcademicSupport
+              overallGrade={overallGrade}
+              isStudentStruggling={isStudentStruggling}
+              showStudyTips={showStudyTips}
+              setShowStudyTips={setShowStudyTips}
+            />
+          </div>
+        </div>
       </div>
     </div>
   );
