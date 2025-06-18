@@ -9,8 +9,8 @@ const Signup = () => {
     <div className="min-h-screen bg-gray-50 w-full overflow-x-hidden">
       <SignupNavigation />
 
-      {/* Main Content - Reduced form size by 40% */}
-      <div className="flex items-center justify-center min-h-[calc(100vh-64px)] p-3 sm:p-4">
+      {/* Main Content - Added top padding to account for fixed navigation */}
+      <div className="flex items-center justify-center min-h-screen p-3 sm:p-4 pt-24">
         <div className="bg-white rounded-xl sm:rounded-2xl shadow-2xl overflow-hidden w-full max-w-2xl sm:max-w-3xl">
           <div className="grid grid-cols-1 lg:grid-cols-2">
             <SignupHero />
