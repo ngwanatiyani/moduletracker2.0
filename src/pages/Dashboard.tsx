@@ -1,13 +1,10 @@
 import { useState } from "react";
-import { GraduationCap, Calculator, Menu, X, Bell, Settings, Home } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "@/hooks/use-toast";
-import ModuleSelector from "@/components/ModuleSelector";
-import UserProfile from "@/components/UserProfile";
-import ModuleOverview from "@/components/ModuleOverview";
-import TermCard from "@/components/TermCard";
-import GradeProjection from "@/components/GradeProjection";
-import AcademicSupport from "@/components/AcademicSupport";
+import NavigationBar from "@/components/NavigationBar";
+import MobileSidebar from "@/components/MobileSidebar";
+import DashboardContent from "@/components/DashboardContent";
+import DashboardFooter from "@/components/DashboardFooter";
 import Chatbot from "@/components/Chatbot";
 
 interface Assessment {
@@ -257,148 +254,45 @@ const Dashboard = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 w-full overflow-x-hidden">
-      {/* Modern Navigation */}
-      <nav className="bg-white/80 backdrop-blur-lg border-b border-slate-200/50 text-slate-800 p-4 sticky top-0 z-50 shadow-sm">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center space-x-3 animate-fade-in">
-            <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg">
-              <GraduationCap className="w-4 h-4 md:w-5 md:h-5 text-white" />
-            </div>
-            <div>
-              <span className="text-lg md:text-xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">ModuleTracker</span>
-              <div className="text-xs text-slate-500 hidden md:block">Academic Progress Dashboard</div>
-            </div>
-          </div>
-          
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-6">
-            <Link to="/" className="flex items-center space-x-2 text-slate-600 hover:text-blue-600 transition-colors duration-200">
-              <Home className="w-4 h-4" />
-              <span>Home</span>
-            </Link>
-            <div className="flex items-center space-x-2 text-blue-600 font-medium">
-              <Calculator className="w-4 h-4" />
-              <span>Dashboard</span>
-            </div>
-            <button className="flex items-center space-x-2 text-slate-600 hover:text-blue-600 transition-colors duration-200">
-              <Bell className="w-4 h-4" />
-              <span>Alerts</span>
-            </button>
-            <button className="flex items-center space-x-2 text-slate-600 hover:text-blue-600 transition-colors duration-200">
-              <Settings className="w-4 h-4" />
-              <span>Settings</span>
-            </button>
-            <button 
-              onClick={handleLogout}
-              className="px-4 py-2 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-lg hover:from-red-600 hover:to-red-700 transition-all duration-200 shadow-md hover:shadow-lg"
-            >
-              Logout
-            </button>
-          </div>
-          
-          {/* Mobile menu button */}
-          <button
-            className="md:hidden p-2 rounded-lg hover:bg-slate-100 transition-colors duration-200"
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-          >
-            {sidebarOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
-        </div>
-      </nav>
+      <NavigationBar
+        sidebarOpen={sidebarOpen}
+        setSidebarOpen={setSidebarOpen}
+        onLogout={handleLogout}
+      />
 
       <div className="flex relative">
-        {/* Mobile Sidebar Overlay */}
-        {sidebarOpen && (
-          <div 
-            className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 md:hidden"
-            onClick={() => setSidebarOpen(false)}
-          />
-        )}
+        <MobileSidebar
+          sidebarOpen={sidebarOpen}
+          setSidebarOpen={setSidebarOpen}
+          selectedYear={selectedYear}
+          modules={modules}
+          selectedModule={selectedModule}
+          onModuleSelect={setSelectedModule}
+        />
 
-        {/* Modern Sidebar */}
-        <div className={`
-          fixed md:sticky top-0 left-0 z-50 md:z-auto
-          w-80 md:w-72 bg-white/90 backdrop-blur-lg shadow-xl md:shadow-lg border-r border-slate-200/50 min-h-screen p-6
-          transform transition-all duration-300 ease-in-out
-          ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
-          md:translate-x-0 md:min-h-[calc(100vh-80px)]
-          overflow-y-auto
-        `}>
-          {/* Close button for mobile */}
-          <button
-            className="md:hidden absolute top-4 right-4 p-2 rounded-lg hover:bg-slate-100 transition-colors duration-200"
-            onClick={() => setSidebarOpen(false)}
-          >
-            <X className="w-5 h-5 text-slate-500" />
-          </button>
-          
-          <ModuleSelector
-            selectedYear={selectedYear}
-            modules={modules}
-            selectedModule={selectedModule}
-            onModuleSelect={(module) => {
-              setSelectedModule(module);
-              setSidebarOpen(false);
-            }}
-          />
-          <UserProfile selectedModule={selectedModule} />
-        </div>
-
-        {/* Modern Main Content */}
-        <div className="flex-1 p-4 md:p-8 animate-fade-in max-w-full">
-          <ModuleOverview
-            selectedModule={selectedModule}
-            overallGrade={overallGrade}
-            getGradeColor={getGradeColor}
-            getProgressColor={getProgressColor}
-          />
-
-          {/* Modern Terms Grid */}
-          <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 mb-8">
-            {currentTerms.map((term, index) => (
-              <TermCard
-                key={term.name}
-                term={term}
-                index={index}
-                calculateTermAverage={calculateTermAverage}
-                getGradeColor={getGradeColor}
-                editingAssessment={editingAssessment}
-                tempAssessment={tempAssessment}
-                onEditAssessment={handleEditAssessment}
-                onSaveAssessment={handleSaveAssessment}
-                onCancelEdit={handleCancelEdit}
-                onAddAssessment={handleAddAssessment}
-                setTempAssessment={setTempAssessment}
-              />
-            ))}
-          </div>
-
-          {/* Modern Bottom Section */}
-          <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
-            <GradeProjection
-              overallGrade={overallGrade}
-              getGradeColor={getGradeColor}
-              onCalculateRequiredMarks={handleCalculateRequiredMarks}
-            />
-            <AcademicSupport
-              overallGrade={overallGrade}
-              isStudentStruggling={isStudentStruggling}
-              showStudyTips={showStudyTips}
-              setShowStudyTips={setShowStudyTips}
-            />
-          </div>
-        </div>
+        <DashboardContent
+          selectedModule={selectedModule}
+          overallGrade={overallGrade}
+          currentTerms={currentTerms}
+          editingAssessment={editingAssessment}
+          tempAssessment={tempAssessment}
+          showStudyTips={showStudyTips}
+          isStudentStruggling={isStudentStruggling}
+          getGradeColor={getGradeColor}
+          getProgressColor={getProgressColor}
+          calculateTermAverage={calculateTermAverage}
+          onEditAssessment={handleEditAssessment}
+          onSaveAssessment={handleSaveAssessment}
+          onCancelEdit={handleCancelEdit}
+          onAddAssessment={handleAddAssessment}
+          onCalculateRequiredMarks={handleCalculateRequiredMarks}
+          setTempAssessment={setTempAssessment}
+          setShowStudyTips={setShowStudyTips}
+        />
       </div>
 
       <Chatbot />
-      
-      {/* Modern Footer */}
-      <footer className="bg-white/80 backdrop-blur-lg border-t border-slate-200/50 text-center py-6">
-        <div className="max-w-7xl mx-auto px-4">
-          <p className="text-slate-600 text-sm">© 2025 ModuleTracker - Group 2 CPUT | Supervisor: S. Tswane</p>
-          <p className="text-slate-500 text-xs mt-1">Java-based Academic Progress Tracking System</p>
-        </div>
-      </footer>
+      <DashboardFooter />
     </div>
   );
 };
