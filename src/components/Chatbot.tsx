@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Bot, Send, Loader2 } from 'lucide-react';
+import { Bot, Send, Loader2, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -21,10 +21,7 @@ interface Message {
   text: string;
 }
 
-// Storing API keys client-side is not secure.
-// For production apps, it's recommended to handle API keys on a backend server.
 const API_KEY = 'AIzaSyC_f3s5j51VF4s_pfK_0ejhahOCRY1zg50';
-
 
 const Chatbot: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -36,7 +33,10 @@ const Chatbot: React.FC = () => {
 
   useEffect(() => {
     if (isOpen && messages.length === 0) {
-      setMessages([{ role: 'model', text: 'Hello! How can I help you with ModuleTracker today?' }]);
+      setMessages([{ 
+        role: 'model', 
+        text: 'Hello! I\'m the ModuleTracker Assistant. I can help you with questions about the platform, its features, or just have a friendly chat. What would you like to know?' 
+      }]);
     }
   }, [isOpen, messages.length]);
 
@@ -81,47 +81,66 @@ const Chatbot: React.FC = () => {
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button 
-          className="fixed bottom-4 right-4 md:bottom-6 md:right-6 rounded-full w-14 h-14 md:w-16 md:h-16 shadow-lg z-50" 
-          title="Open Chatbot"
+          className="fixed bottom-6 right-6 md:bottom-8 md:right-8 rounded-2xl w-16 h-16 md:w-18 md:h-18 shadow-2xl z-50 bg-gradient-to-br from-blue-500 via-blue-600 to-indigo-600 hover:from-blue-600 hover:via-blue-700 hover:to-indigo-700 border-0 hover:scale-105 transition-all duration-300" 
+          title="Open ModuleTracker Assistant"
         >
-          <Bot className="w-6 h-6 md:w-8 md:h-8" />
+          <div className="relative">
+            <Bot className="w-7 h-7 md:w-8 md:h-8" />
+            <Sparkles className="w-3 h-3 absolute -top-1 -right-1 animate-pulse" />
+          </div>
         </Button>
       </DialogTrigger>
-      <DialogContent className="w-[95vw] max-w-[425px] md:max-w-lg flex flex-col h-[80vh] md:h-[70vh] m-4">
-        <DialogHeader>
-          <DialogTitle className="text-lg md:text-xl">ModuleTracker Assistant</DialogTitle>
-          <DialogDescription className="text-sm">
-            This chatbot can answer questions about the platform's features and rules.
+      <DialogContent className="w-[95vw] max-w-[425px] md:max-w-lg flex flex-col h-[85vh] md:h-[75vh] m-4 bg-white/95 backdrop-blur-lg border-0 shadow-2xl">
+        <DialogHeader className="border-b border-slate-200/50 pb-4">
+          <DialogTitle className="text-xl md:text-2xl flex items-center gap-3">
+            <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center">
+              <Bot className="w-4 h-4 text-white" />
+            </div>
+            ModuleTracker Assistant
+          </DialogTitle>
+          <DialogDescription className="text-sm text-slate-600">
+            Your AI assistant for platform features, rules, and general questions about ModuleTracker.
           </DialogDescription>
         </DialogHeader>
-        <div className="flex-1 overflow-y-auto p-4 space-y-4 border-t border-b">
+        
+        <div className="flex-1 overflow-y-auto p-4 space-y-4">
           {messages.map((msg, index) => (
             <div key={index} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-              <div className={`rounded-lg px-3 py-2 md:px-4 md:py-2 max-w-[85%] md:max-w-[80%] break-words text-sm md:text-base ${msg.role === 'user' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-800'}`}>
+              <div className={`rounded-2xl px-4 py-3 md:px-5 md:py-3 max-w-[85%] md:max-w-[80%] break-words text-sm md:text-base shadow-md ${
+                msg.role === 'user' 
+                  ? 'bg-gradient-to-br from-blue-500 to-blue-600 text-white' 
+                  : 'bg-gradient-to-br from-slate-50 to-slate-100 text-slate-800 border border-slate-200/50'
+              }`}>
                 {msg.text}
               </div>
             </div>
           ))}
           {isLoading && (
             <div className="flex justify-start">
-                <div className="rounded-lg px-3 py-2 md:px-4 md:py-2 bg-gray-200 text-gray-800 flex items-center text-sm md:text-base">
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Thinking...
-                </div>
+              <div className="rounded-2xl px-4 py-3 md:px-5 md:py-3 bg-gradient-to-br from-slate-50 to-slate-100 text-slate-800 flex items-center text-sm md:text-base shadow-md border border-slate-200/50">
+                <Loader2 className="mr-2 h-4 w-4 animate-spin text-blue-500" />
+                Thinking...
+              </div>
             </div>
           )}
           <div ref={messagesEndRef} />
         </div>
-        <DialogFooter>
-          <form onSubmit={handleSendMessage} className="flex w-full items-center space-x-2">
+        
+        <DialogFooter className="border-t border-slate-200/50 pt-4">
+          <form onSubmit={handleSendMessage} className="flex w-full items-center space-x-3">
             <Input
-              placeholder="Type your message..."
+              placeholder="Ask me anything about ModuleTracker..."
               value={input}
               onChange={(e) => setInput(e.target.value)}
               disabled={isLoading}
-              className="text-sm md:text-base"
+              className="text-sm md:text-base border-slate-200 focus:border-blue-500 focus:ring-blue-500/20 rounded-xl bg-white/80"
             />
-            <Button type="submit" disabled={isLoading || !input.trim()} size="sm" className="px-3 py-2">
+            <Button 
+              type="submit" 
+              disabled={isLoading || !input.trim()} 
+              size="sm" 
+              className="px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 rounded-xl shadow-md"
+            >
               <Send className="h-4 w-4" />
             </Button>
           </form>

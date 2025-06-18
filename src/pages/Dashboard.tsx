@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { GraduationCap, Calculator } from "lucide-react";
+import { GraduationCap, Calculator, Menu, X, Bell, Settings, Home } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "@/hooks/use-toast";
 import ModuleSelector from "@/components/ModuleSelector";
@@ -256,32 +256,52 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 w-full overflow-x-hidden">
-      {/* Navigation */}
-      <nav className="bg-slate-900 text-white p-4 shadow-lg relative z-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 w-full overflow-x-hidden">
+      {/* Modern Navigation */}
+      <nav className="bg-white/80 backdrop-blur-lg border-b border-slate-200/50 text-slate-800 p-4 sticky top-0 z-50 shadow-sm">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center space-x-2 animate-fade-in">
-            <GraduationCap className="w-6 h-6 md:w-8 md:h-8 text-yellow-400" />
-            <span className="text-lg md:text-xl font-bold text-yellow-400">ModuleTracker</span>
+          <div className="flex items-center space-x-3 animate-fade-in">
+            <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg">
+              <GraduationCap className="w-4 h-4 md:w-5 md:h-5 text-white" />
+            </div>
+            <div>
+              <span className="text-lg md:text-xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">ModuleTracker</span>
+              <div className="text-xs text-slate-500 hidden md:block">Academic Progress Dashboard</div>
+            </div>
           </div>
+          
+          {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-6">
-            <Link to="/" className="hover:text-yellow-400 transition-colors duration-200">Home</Link>
-            <span className="text-blue-400 font-medium">Dashboard</span>
+            <Link to="/" className="flex items-center space-x-2 text-slate-600 hover:text-blue-600 transition-colors duration-200">
+              <Home className="w-4 h-4" />
+              <span>Home</span>
+            </Link>
+            <div className="flex items-center space-x-2 text-blue-600 font-medium">
+              <Calculator className="w-4 h-4" />
+              <span>Dashboard</span>
+            </div>
+            <button className="flex items-center space-x-2 text-slate-600 hover:text-blue-600 transition-colors duration-200">
+              <Bell className="w-4 h-4" />
+              <span>Alerts</span>
+            </button>
+            <button className="flex items-center space-x-2 text-slate-600 hover:text-blue-600 transition-colors duration-200">
+              <Settings className="w-4 h-4" />
+              <span>Settings</span>
+            </button>
             <button 
               onClick={handleLogout}
-              className="hover:text-yellow-400 transition-colors duration-200 cursor-pointer"
+              className="px-4 py-2 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-lg hover:from-red-600 hover:to-red-700 transition-all duration-200 shadow-md hover:shadow-lg"
             >
               Logout
             </button>
           </div>
+          
           {/* Mobile menu button */}
           <button
-            className="md:hidden text-white"
+            className="md:hidden p-2 rounded-lg hover:bg-slate-100 transition-colors duration-200"
             onClick={() => setSidebarOpen(!sidebarOpen)}
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
+            {sidebarOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
       </nav>
@@ -290,28 +310,26 @@ const Dashboard = () => {
         {/* Mobile Sidebar Overlay */}
         {sidebarOpen && (
           <div 
-            className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
+            className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 md:hidden"
             onClick={() => setSidebarOpen(false)}
           />
         )}
 
-        {/* Sidebar */}
+        {/* Modern Sidebar */}
         <div className={`
           fixed md:sticky top-0 left-0 z-50 md:z-auto
-          w-80 md:w-64 bg-white shadow-lg min-h-screen p-4
-          transform transition-transform duration-300 ease-in-out
+          w-80 md:w-72 bg-white/90 backdrop-blur-lg shadow-xl md:shadow-lg border-r border-slate-200/50 min-h-screen p-6
+          transform transition-all duration-300 ease-in-out
           ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
           md:translate-x-0 md:min-h-[calc(100vh-80px)]
           overflow-y-auto
         `}>
           {/* Close button for mobile */}
           <button
-            className="md:hidden absolute top-4 right-4 text-gray-500 hover:text-gray-700"
+            className="md:hidden absolute top-4 right-4 p-2 rounded-lg hover:bg-slate-100 transition-colors duration-200"
             onClick={() => setSidebarOpen(false)}
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
+            <X className="w-5 h-5 text-slate-500" />
           </button>
           
           <ModuleSelector
@@ -320,14 +338,14 @@ const Dashboard = () => {
             selectedModule={selectedModule}
             onModuleSelect={(module) => {
               setSelectedModule(module);
-              setSidebarOpen(false); // Close sidebar on mobile after selection
+              setSidebarOpen(false);
             }}
           />
           <UserProfile selectedModule={selectedModule} />
         </div>
 
-        {/* Main Content */}
-        <div className="flex-1 p-4 md:p-6 animate-fade-in max-w-full">
+        {/* Modern Main Content */}
+        <div className="flex-1 p-4 md:p-8 animate-fade-in max-w-full">
           <ModuleOverview
             selectedModule={selectedModule}
             overallGrade={overallGrade}
@@ -335,8 +353,8 @@ const Dashboard = () => {
             getProgressColor={getProgressColor}
           />
 
-          {/* Terms */}
-          <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 md:gap-6 mb-6">
+          {/* Modern Terms Grid */}
+          <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 mb-8">
             {currentTerms.map((term, index) => (
               <TermCard
                 key={term.name}
@@ -355,8 +373,8 @@ const Dashboard = () => {
             ))}
           </div>
 
-          {/* Bottom Section */}
-          <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 md:gap-6">
+          {/* Modern Bottom Section */}
+          <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
             <GradeProjection
               overallGrade={overallGrade}
               getGradeColor={getGradeColor}
@@ -373,9 +391,13 @@ const Dashboard = () => {
       </div>
 
       <Chatbot />
-      {/* Footer */}
-      <footer className="bg-slate-900 text-center py-4">
-        <p className="text-gray-400 text-sm">© 2025 ModuleTracker - Ngwana-Tiyani</p>
+      
+      {/* Modern Footer */}
+      <footer className="bg-white/80 backdrop-blur-lg border-t border-slate-200/50 text-center py-6">
+        <div className="max-w-7xl mx-auto px-4">
+          <p className="text-slate-600 text-sm">© 2025 ModuleTracker - Group 2 CPUT | Supervisor: S. Tswane</p>
+          <p className="text-slate-500 text-xs mt-1">Java-based Academic Progress Tracking System</p>
+        </div>
       </footer>
     </div>
   );
