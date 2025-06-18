@@ -1,6 +1,6 @@
 
 import React from "react";
-import { GraduationCap, Calculator, Menu, X, Bell, Settings, Home, LogOut } from "lucide-react";
+import { GraduationCap, Calculator, Menu, X, Home, LogOut } from "lucide-react";
 import { Link } from "react-router-dom";
 
 interface NavigationBarProps {
@@ -37,14 +37,6 @@ const NavigationBar: React.FC<NavigationBarProps> = ({
             <Calculator className="w-4 h-4" />
             <span>Dashboard</span>
           </div>
-          <button className="flex items-center space-x-2 text-slate-600 hover:text-blue-600 transition-colors duration-200">
-            <Bell className="w-4 h-4" />
-            <span>Alerts</span>
-          </button>
-          <button className="flex items-center space-x-2 text-slate-600 hover:text-blue-600 transition-colors duration-200">
-            <Settings className="w-4 h-4" />
-            <span>Settings</span>
-          </button>
           <button 
             onClick={onLogout}
             className="px-4 py-2 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-lg hover:from-red-600 hover:to-red-700 transition-all duration-200 shadow-md hover:shadow-lg"

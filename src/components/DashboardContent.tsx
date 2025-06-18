@@ -4,21 +4,7 @@ import ModuleOverview from "@/components/ModuleOverview";
 import TermCard from "@/components/TermCard";
 import GradeProjection from "@/components/GradeProjection";
 import AcademicSupport from "@/components/AcademicSupport";
-
-interface Assessment {
-  id: string;
-  name: string;
-  type: string;
-  grade: number | null;
-  weight: number;
-  status: 'completed' | 'pending';
-}
-
-interface Term {
-  name: string;
-  weight: number;
-  assessments: Assessment[];
-}
+import { Assessment, Term } from "@/data/moduleData";
 
 interface DashboardContentProps {
   selectedModule: string;
@@ -60,7 +46,7 @@ const DashboardContent: React.FC<DashboardContentProps> = ({
   setShowStudyTips
 }) => {
   return (
-    <div className="flex-1 p-4 md:p-8 animate-fade-in max-w-full">
+    <div className="flex-1 p-3 sm:p-4 lg:p-6 xl:p-8 animate-fade-in max-w-full min-h-screen">
       <ModuleOverview
         selectedModule={selectedModule}
         overallGrade={overallGrade}
@@ -68,8 +54,8 @@ const DashboardContent: React.FC<DashboardContentProps> = ({
         getProgressColor={getProgressColor}
       />
 
-      {/* Modern Terms Grid */}
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 mb-8">
+      {/* Responsive Terms Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
         {currentTerms.map((term, index) => (
           <TermCard
             key={term.name}
@@ -88,8 +74,8 @@ const DashboardContent: React.FC<DashboardContentProps> = ({
         ))}
       </div>
 
-      {/* Modern Bottom Section */}
-      <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+      {/* Responsive Bottom Section */}
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 sm:gap-6">
         <GradeProjection
           overallGrade={overallGrade}
           getGradeColor={getGradeColor}
