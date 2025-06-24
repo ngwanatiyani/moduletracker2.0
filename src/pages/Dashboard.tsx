@@ -37,7 +37,7 @@ const Dashboard = () => {
   const isStudentStruggling = overallGrade > 0 && overallGrade < 50;
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-gradient-to-br from-slate-50 via-orange-50/20 to-blue-50/30">
       <OptimizedLayout
         sidebarOpen={sidebarOpen}
         setSidebarOpen={setSidebarOpen}

@@ -47,8 +47,8 @@ const DashboardContent: React.FC<DashboardContentProps> = ({
   setShowStudyTips
 }) => {
   return (
-    <div className="flex-1 w-full max-w-full">
-      <div className="p-2 lg:p-3 xl:p-4 animate-fade-in max-w-7xl mx-auto space-y-3">
+    <div className="flex-1 w-full max-w-full min-h-screen bg-gradient-to-br from-slate-50 via-orange-50/20 to-blue-50/30">
+      <div className="p-4 lg:p-6 xl:p-8 max-w-7xl mx-auto space-y-6">
         {/* Header Section */}
         <DashboardHeader
           selectedModule={selectedModule}
@@ -56,7 +56,7 @@ const DashboardContent: React.FC<DashboardContentProps> = ({
           getGradeColor={getGradeColor}
         />
 
-        {/* 3D Stats Cards */}
+        {/* Stats Cards */}
         <Stats3D
           currentTerms={currentTerms}
           calculateTermAverage={calculateTermAverage}
@@ -73,11 +73,11 @@ const DashboardContent: React.FC<DashboardContentProps> = ({
         />
 
         {/* Main Content Grid */}
-        <div className="grid grid-cols-1 xl:grid-cols-4 gap-3">
-          {/* Terms Section - Takes 2/4 of the space on xl screens */}
-          <div className="xl:col-span-2">
-            <h2 className="text-base font-semibold text-slate-800 mb-2">Term Assessments</h2>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 xl:grid-cols-12 gap-6">
+          {/* Terms Section */}
+          <div className="xl:col-span-8 space-y-4">
+            <h2 className="text-lg font-semibold text-slate-800 mb-4">Term Progress</h2>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
               {currentTerms.map((term, index) => (
                 <ModernTermCard
                   key={term.name}
@@ -97,28 +97,29 @@ const DashboardContent: React.FC<DashboardContentProps> = ({
             </div>
           </div>
 
-          {/* Performance Metrics - Takes 1/4 of the space */}
-          <div className="xl:col-span-1">
-            <h2 className="text-base font-semibold text-slate-800 mb-2">Performance</h2>
-            <PerformanceMetrics
-              currentTerms={currentTerms}
-              calculateTermAverage={calculateTermAverage}
-              overallGrade={overallGrade}
-              getGradeColor={getGradeColor}
-            />
-          </div>
-
-          {/* Action Panel - Takes 1/4 of the space */}
-          <div className="xl:col-span-1">
-            <h2 className="text-base font-semibold text-slate-800 mb-2">Tools & Support</h2>
-            <ActionPanel
-              overallGrade={overallGrade}
-              isStudentStruggling={isStudentStruggling}
-              showStudyTips={showStudyTips}
-              setShowStudyTips={setShowStudyTips}
-              onCalculateRequiredMarks={onCalculateRequiredMarks}
-              getGradeColor={getGradeColor}
-            />
+          {/* Sidebar */}
+          <div className="xl:col-span-4 space-y-4">
+            <div>
+              <h2 className="text-lg font-semibold text-slate-800 mb-4">Performance Insights</h2>
+              <PerformanceMetrics
+                currentTerms={currentTerms}
+                calculateTermAverage={calculateTermAverage}
+                overallGrade={overallGrade}
+                getGradeColor={getGradeColor}
+              />
+            </div>
+            
+            <div>
+              <h2 className="text-lg font-semibold text-slate-800 mb-4">Academic Tools</h2>
+              <ActionPanel
+                overallGrade={overallGrade}
+                isStudentStruggling={isStudentStruggling}
+                showStudyTips={showStudyTips}
+                setShowStudyTips={setShowStudyTips}
+                onCalculateRequiredMarks={onCalculateRequiredMarks}
+                getGradeColor={getGradeColor}
+              />
+            </div>
           </div>
         </div>
       </div>
