@@ -39,10 +39,10 @@ const ModernTermCard: React.FC<ModernTermCardProps> = ({
   const totalCount = term.assessments.length;
 
   return (
-    <Card className="shadow-sm border-0 bg-white/80 backdrop-blur-sm hover:shadow-md transition-all duration-300">
-      <CardHeader className="pb-4">
+    <Card className="shadow-sm border-0 bg-white/80 backdrop-blur-sm hover:shadow-md transition-all duration-300 h-fit">
+      <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
-          <CardTitle className="text-lg font-semibold flex items-center gap-2">
+          <CardTitle className="text-base font-semibold flex items-center gap-2">
             <Calendar className="w-4 h-4 text-slate-500" />
             {term.name}
           </CardTitle>
@@ -50,22 +50,22 @@ const ModernTermCard: React.FC<ModernTermCardProps> = ({
             <Badge variant="outline" className="text-xs">
               {completedCount}/{totalCount}
             </Badge>
-            <div className={`text-lg font-bold ${getGradeColor(termAverage)}`}>
+            <div className={`text-base font-bold ${getGradeColor(termAverage)}`}>
               {termAverage > 0 ? `${termAverage}%` : '--'}
             </div>
           </div>
         </div>
       </CardHeader>
-      <CardContent className="space-y-3">
+      <CardContent className="space-y-2">
         {term.assessments.map((assessment) => (
-          <div key={assessment.id} className="bg-slate-50/50 rounded-lg p-3 border border-slate-200/30">
+          <div key={assessment.id} className="bg-slate-50/50 rounded-lg p-2.5 border border-slate-200/30">
             {editingAssessment === assessment.id ? (
               <div className="space-y-2">
                 <Input
                   value={tempAssessment.name || ''}
                   onChange={(e) => setTempAssessment({ ...tempAssessment, name: e.target.value })}
                   placeholder="Assessment name"
-                  className="text-sm"
+                  className="text-sm h-8"
                 />
                 <div className="grid grid-cols-2 gap-2">
                   <Input
@@ -73,22 +73,22 @@ const ModernTermCard: React.FC<ModernTermCardProps> = ({
                     value={tempAssessment.grade || ''}
                     onChange={(e) => setTempAssessment({ ...tempAssessment, grade: e.target.value ? Number(e.target.value) : null })}
                     placeholder="Grade"
-                    className="text-sm"
+                    className="text-sm h-8"
                   />
                   <Input
                     type="number"
                     value={tempAssessment.weight || ''}
                     onChange={(e) => setTempAssessment({ ...tempAssessment, weight: Number(e.target.value) })}
                     placeholder="Weight %"
-                    className="text-sm"
+                    className="text-sm h-8"
                   />
                 </div>
                 <div className="flex gap-2">
-                  <Button size="sm" onClick={onSaveAssessment} className="flex-1">
+                  <Button size="sm" onClick={onSaveAssessment} className="flex-1 h-8 text-xs">
                     <Save className="w-3 h-3 mr-1" />
                     Save
                   </Button>
-                  <Button size="sm" variant="outline" onClick={onCancelEdit} className="flex-1">
+                  <Button size="sm" variant="outline" onClick={onCancelEdit} className="flex-1 h-8 text-xs">
                     <X className="w-3 h-3 mr-1" />
                     Cancel
                   </Button>
@@ -96,13 +96,13 @@ const ModernTermCard: React.FC<ModernTermCardProps> = ({
               </div>
             ) : (
               <div className="flex items-center justify-between">
-                <div className="flex-1">
-                  <div className="font-medium text-sm text-slate-800">{assessment.name}</div>
-                  <div className="text-xs text-slate-500 mt-1">
+                <div className="flex-1 min-w-0">
+                  <div className="font-medium text-sm text-slate-800 truncate">{assessment.name}</div>
+                  <div className="text-xs text-slate-500 mt-0.5">
                     {assessment.type} • Weight: {assessment.weight}%
                   </div>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 ml-2">
                   <div className={`text-sm font-semibold ${getGradeColor(assessment.grade || 0)}`}>
                     {assessment.grade !== null ? `${assessment.grade}%` : 'Pending'}
                   </div>
@@ -110,7 +110,7 @@ const ModernTermCard: React.FC<ModernTermCardProps> = ({
                     size="sm"
                     variant="ghost"
                     onClick={() => onEditAssessment(assessment.id, assessment)}
-                    className="w-8 h-8 p-0"
+                    className="w-7 h-7 p-0"
                   >
                     <Edit3 className="w-3 h-3" />
                   </Button>
@@ -124,7 +124,7 @@ const ModernTermCard: React.FC<ModernTermCardProps> = ({
           variant="outline"
           size="sm"
           onClick={() => onAddAssessment(term.name)}
-          className="w-full mt-3 border-dashed"
+          className="w-full mt-2 border-dashed h-8 text-xs"
         >
           <Plus className="w-4 h-4 mr-2" />
           Add Assessment

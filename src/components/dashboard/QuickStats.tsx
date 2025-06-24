@@ -52,14 +52,14 @@ const QuickStats: React.FC<QuickStatsProps> = ({
   ];
 
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4">
       {stats.map((stat, index) => (
-        <div key={index} className="bg-white rounded-xl shadow-sm border border-slate-200/50 p-4">
-          <div className={`w-10 h-10 ${stat.bg} rounded-lg flex items-center justify-center mb-3`}>
-            <stat.icon className={`w-5 h-5 ${stat.color}`} />
+        <div key={index} className="bg-white rounded-lg shadow-sm border border-slate-200/50 p-3 lg:p-4">
+          <div className={`w-8 h-8 lg:w-10 lg:h-10 ${stat.bg} rounded-lg flex items-center justify-center mb-2 lg:mb-3`}>
+            <stat.icon className={`w-4 h-4 lg:w-5 lg:h-5 ${stat.color}`} />
           </div>
-          <div className="text-2xl font-bold text-slate-800 mb-1">{stat.value}</div>
-          <div className="text-sm text-slate-500">{stat.label}</div>
+          <div className="text-xl lg:text-2xl font-bold text-slate-800 mb-1">{stat.value}</div>
+          <div className="text-xs lg:text-sm text-slate-500">{stat.label}</div>
         </div>
       ))}
     </div>
