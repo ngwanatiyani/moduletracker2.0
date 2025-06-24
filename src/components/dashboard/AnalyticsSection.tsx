@@ -52,24 +52,24 @@ const AnalyticsSection: React.FC<AnalyticsSectionProps> = ({
   }));
 
   return (
-    <div className="grid grid-cols-1 xl:grid-cols-2 gap-3">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
       {/* Performance Trend */}
       <Card className="shadow-sm border-0 bg-gradient-to-br from-blue-50/80 to-indigo-50/80 backdrop-blur-sm">
-        <CardHeader className="pb-2">
+        <CardHeader className="pb-2 px-3 pt-3">
           <CardTitle className="flex items-center gap-2 text-sm font-semibold">
             <TrendingUp className="w-4 h-4 text-blue-600" />
             Performance Trend
           </CardTitle>
         </CardHeader>
-        <CardContent className="p-3">
-          <ChartContainer config={chartConfig} className="h-32">
+        <CardContent className="p-3 pt-0">
+          <ChartContainer config={chartConfig} className="h-24">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={progressData}>
                 <CartesianGrid strokeDasharray="3 3" className="opacity-30" />
-                <XAxis dataKey="week" tick={{ fontSize: 10 }} />
-                <YAxis tick={{ fontSize: 10 }} />
+                <XAxis dataKey="week" tick={{ fontSize: 9 }} />
+                <YAxis tick={{ fontSize: 9 }} />
                 <ChartTooltip content={<ChartTooltipContent />} />
-                <Line type="monotone" dataKey="grade" stroke="#3b82f6" strokeWidth={2} dot={{ r: 3 }} />
+                <Line type="monotone" dataKey="grade" stroke="#3b82f6" strokeWidth={2} dot={{ r: 2 }} />
                 <Line type="monotone" dataKey="target" stroke="#10b981" strokeDasharray="5 5" strokeWidth={1} />
               </LineChart>
             </ResponsiveContainer>
@@ -79,21 +79,21 @@ const AnalyticsSection: React.FC<AnalyticsSectionProps> = ({
 
       {/* Term Comparison */}
       <Card className="shadow-sm border-0 bg-gradient-to-br from-green-50/80 to-emerald-50/80 backdrop-blur-sm">
-        <CardHeader className="pb-2">
+        <CardHeader className="pb-2 px-3 pt-3">
           <CardTitle className="flex items-center gap-2 text-sm font-semibold">
             <Award className="w-4 h-4 text-green-600" />
             Term Comparison
           </CardTitle>
         </CardHeader>
-        <CardContent className="p-3">
-          <ChartContainer config={chartConfig} className="h-32">
+        <CardContent className="p-3 pt-0">
+          <ChartContainer config={chartConfig} className="h-24">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={termData}>
                 <CartesianGrid strokeDasharray="3 3" className="opacity-30" />
-                <XAxis dataKey="name" tick={{ fontSize: 10 }} />
-                <YAxis tick={{ fontSize: 10 }} />
+                <XAxis dataKey="name" tick={{ fontSize: 9 }} />
+                <YAxis tick={{ fontSize: 9 }} />
                 <ChartTooltip content={<ChartTooltipContent />} />
-                <Bar dataKey="grade" fill="#3b82f6" radius={[2, 2, 0, 0]} />
+                <Bar dataKey="grade" fill="#3b82f6" radius={[1, 1, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </ChartContainer>
@@ -103,22 +103,22 @@ const AnalyticsSection: React.FC<AnalyticsSectionProps> = ({
       {/* Grade Distribution */}
       {gradeDistribution.length > 0 && (
         <Card className="shadow-sm border-0 bg-gradient-to-br from-purple-50/80 to-pink-50/80 backdrop-blur-sm">
-          <CardHeader className="pb-2">
+          <CardHeader className="pb-2 px-3 pt-3">
             <CardTitle className="flex items-center gap-2 text-sm font-semibold">
               <Target className="w-4 h-4 text-purple-600" />
               Grade Distribution
             </CardTitle>
           </CardHeader>
-          <CardContent className="p-3">
-            <ChartContainer config={chartConfig} className="h-32">
+          <CardContent className="p-3 pt-0">
+            <ChartContainer config={chartConfig} className="h-24">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie
                     data={gradeDistribution}
                     cx="50%"
                     cy="50%"
-                    innerRadius={20}
-                    outerRadius={50}
+                    innerRadius={15}
+                    outerRadius={35}
                     paddingAngle={2}
                     dataKey="value"
                   >
@@ -136,21 +136,21 @@ const AnalyticsSection: React.FC<AnalyticsSectionProps> = ({
 
       {/* Progress Overview */}
       <Card className="shadow-sm border-0 bg-gradient-to-br from-orange-50/80 to-amber-50/80 backdrop-blur-sm">
-        <CardHeader className="pb-2">
+        <CardHeader className="pb-2 px-3 pt-3">
           <CardTitle className="flex items-center gap-2 text-sm font-semibold">
             <Calendar className="w-4 h-4 text-orange-600" />
             Progress Overview
           </CardTitle>
         </CardHeader>
-        <CardContent className="p-3">
-          <ChartContainer config={chartConfig} className="h-32">
+        <CardContent className="p-3 pt-0">
+          <ChartContainer config={chartConfig} className="h-24">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={termData}>
                 <CartesianGrid strokeDasharray="3 3" className="opacity-30" />
-                <XAxis dataKey="name" tick={{ fontSize: 10 }} />
-                <YAxis tick={{ fontSize: 10 }} />
+                <XAxis dataKey="name" tick={{ fontSize: 9 }} />
+                <YAxis tick={{ fontSize: 9 }} />
                 <ChartTooltip content={<ChartTooltipContent />} />
-                <Bar dataKey="progress" fill="#f59e0b" radius={[2, 2, 0, 0]} />
+                <Bar dataKey="progress" fill="#f59e0b" radius={[1, 1, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </ChartContainer>

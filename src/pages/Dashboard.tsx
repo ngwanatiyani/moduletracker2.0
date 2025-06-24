@@ -2,7 +2,6 @@
 import React from 'react';
 import OptimizedLayout from '@/components/layout/OptimizedLayout';
 import DashboardContent from "@/components/DashboardContent";
-import MobileSidebar from "@/components/MobileSidebar";
 import ProfessionalFooter from "@/components/ProfessionalFooter";
 import { useDashboardState } from "@/hooks/useDashboardState";
 
@@ -43,37 +42,28 @@ const Dashboard = () => {
         setSidebarOpen={setSidebarOpen}
         onLogout={handleLogout}
         showChatbot={true}
+        showSidebar={false}
       >
-        <div className="flex relative min-h-screen">
-          <MobileSidebar
-            sidebarOpen={sidebarOpen}
-            setSidebarOpen={setSidebarOpen}
-            selectedYear={selectedYear}
-            modules={modules}
-            selectedModule={selectedModule}
-            onModuleSelect={setSelectedModule}
-          />
-
-          <DashboardContent
-            selectedModule={selectedModule}
-            overallGrade={overallGrade}
-            currentTerms={currentTerms}
-            editingAssessment={editingAssessment}
-            tempAssessment={tempAssessment}
-            showStudyTips={showStudyTips}
-            isStudentStruggling={isStudentStruggling}
-            getGradeColor={getGradeColor}
-            getProgressColor={getProgressColor}
-            calculateTermAverage={calculateTermAverage}
-            onEditAssessment={handleEditAssessment}
-            onSaveAssessment={handleSaveAssessment}
-            onCancelEdit={handleCancelEdit}
-            onAddAssessment={handleAddAssessment}
-            onCalculateRequiredMarks={handleCalculateRequiredMarks}
-            setTempAssessment={setTempAssessment}
-            setShowStudyTips={setShowStudyTips}
-          />
-        </div>
+        <DashboardContent
+          selectedModule={selectedModule}
+          overallGrade={overallGrade}
+          currentTerms={currentTerms}
+          editingAssessment={editingAssessment}
+          tempAssessment={tempAssessment}
+          showStudyTips={showStudyTips}
+          isStudentStruggling={isStudentStruggling}
+          modules={modules}
+          getGradeColor={getGradeColor}
+          calculateTermAverage={calculateTermAverage}
+          onEditAssessment={handleEditAssessment}
+          onSaveAssessment={handleSaveAssessment}
+          onCancelEdit={handleCancelEdit}
+          onAddAssessment={handleAddAssessment}
+          onCalculateRequiredMarks={handleCalculateRequiredMarks}
+          onModuleSelect={setSelectedModule}
+          setTempAssessment={setTempAssessment}
+          setShowStudyTips={setShowStudyTips}
+        />
       </OptimizedLayout>
       <ProfessionalFooter />
     </div>
