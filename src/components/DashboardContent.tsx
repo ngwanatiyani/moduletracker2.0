@@ -1,9 +1,9 @@
 
 import React from "react";
-import ModuleOverview from "@/components/ModuleOverview";
-import TermCard from "@/components/TermCard";
-import GradeProjection from "@/components/GradeProjection";
-import AcademicSupport from "@/components/AcademicSupport";
+import DashboardHeader from "@/components/dashboard/DashboardHeader";
+import QuickStats from "@/components/dashboard/QuickStats";
+import ModernTermCard from "@/components/dashboard/ModernTermCard";
+import ActionPanel from "@/components/dashboard/ActionPanel";
 import { Assessment, Term } from "@/data/moduleData";
 
 interface DashboardContentProps {
@@ -35,7 +35,6 @@ const DashboardContent: React.FC<DashboardContentProps> = ({
   showStudyTips,
   isStudentStruggling,
   getGradeColor,
-  getProgressColor,
   calculateTermAverage,
   onEditAssessment,
   onSaveAssessment,
@@ -47,22 +46,28 @@ const DashboardContent: React.FC<DashboardContentProps> = ({
 }) => {
   return (
     <div className="flex-1 w-full max-w-full">
-      <div className="p-3 sm:p-4 md:p-6 lg:p-8 xl:p-10 animate-fade-in space-y-4 sm:space-y-6 lg:space-y-8">
-        {/* Module Overview with better spacing */}
-        <div className="w-full">
-          <ModuleOverview
-            selectedModule={selectedModule}
-            overallGrade={overallGrade}
-            getGradeColor={getGradeColor}
-            getProgressColor={getProgressColor}
-          />
-        </div>
+      <div className="p-4 lg:p-6 xl:p-8 animate-fade-in max-w-7xl mx-auto">
+        {/* Header Section */}
+        <DashboardHeader
+          selectedModule={selectedModule}
+          overallGrade={overallGrade}
+          getGradeColor={getGradeColor}
+        />
 
-        {/* Responsive Terms Grid with improved layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-3 sm:gap-4 md:gap-5 lg:gap-6">
-          {currentTerms.map((term, index) => (
-            <div key={term.name} className="w-full">
-              <TermCard
+        {/* Quick Stats */}
+        <QuickStats
+          currentTerms={currentTerms}
+          calculateTermAverage={calculateTermAverage}
+          overallGrade={overallGrade}
+        />
+
+        {/* Terms Grid */}
+        <div className="mb-6">
+          <h2 className="text-xl font-semibold text-slate-800 mb-4">Term Assessments</h2>
+          <div className="grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-6">
+            {currentTerms.map((term, index) => (
+              <ModernTermCard
+                key={term.name}
                 term={term}
                 index={index}
                 calculateTermAverage={calculateTermAverage}
@@ -75,28 +80,19 @@ const DashboardContent: React.FC<DashboardContentProps> = ({
                 onAddAssessment={onAddAssessment}
                 setTempAssessment={setTempAssessment}
               />
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
 
-        {/* Bottom Section with improved responsive grid */}
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 sm:gap-5 md:gap-6 lg:gap-8">
-          <div className="w-full">
-            <GradeProjection
-              overallGrade={overallGrade}
-              getGradeColor={getGradeColor}
-              onCalculateRequiredMarks={onCalculateRequiredMarks}
-            />
-          </div>
-          <div className="w-full">
-            <AcademicSupport
-              overallGrade={overallGrade}
-              isStudentStruggling={isStudentStruggling}
-              showStudyTips={showStudyTips}
-              setShowStudyTips={setShowStudyTips}
-            />
-          </div>
-        </div>
+        {/* Action Panel */}
+        <ActionPanel
+          overallGrade={overallGrade}
+          isStudentStruggling={isStudentStruggling}
+          showStudyTips={showStudyTips}
+          setShowStudyTips={setShowStudyTips}
+          onCalculateRequiredMarks={onCalculateRequiredMarks}
+          getGradeColor={getGradeColor}
+        />
       </div>
     </div>
   );
