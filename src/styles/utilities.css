@@ -39,10 +39,63 @@
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
 }
 
+/* Modern glassmorphism effects */
+.glass-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.glass-card:hover {
+  background: rgba(255, 255, 255, 0.9);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* 3D card transforms */
+.card-3d {
+  transform-style: preserve-3d;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.card-3d:hover {
+  transform: perspective(1000px) rotateX(10deg) rotateY(10deg) translateZ(20px);
+}
+
+/* Floating animation for stats */
+.float-animation {
+  animation: float 6s ease-in-out infinite;
+}
+
+.float-animation:nth-child(2) {
+  animation-delay: -1s;
+}
+
+.float-animation:nth-child(3) {
+  animation-delay: -2s;
+}
+
+.float-animation:nth-child(4) {
+  animation-delay: -3s;
+}
+
+.float-animation:nth-child(5) {
+  animation-delay: -4s;
+}
+
+.float-animation:nth-child(6) {
+  animation-delay: -5s;
+}
+
 /* Improved responsive utilities */
 @media (max-width: 640px) {
   .text-responsive {
     font-size: 0.875rem;
+  }
+  
+  .glass-card {
+    backdrop-filter: blur(8px);
   }
 }
 
@@ -56,4 +109,12 @@
   .text-responsive {
     font-size: 1.125rem;
   }
+}
+
+/* Modern gradient backgrounds */
+.gradient-mesh {
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 40% 80%, rgba(120, 219, 255, 0.3) 0%, transparent 50%);
 }
