@@ -1,8 +1,8 @@
 export const businessRules = `
 1. User Authentication Rules
 - Every student must use their student number to create an account.
+- Every student must use must confirm their password on the registration form when creating an account.
 - Once logged in, the system will remember the user's login information.
-- Students can change their account details whenever they need.
 
 2. Module Configuration Rules
 - Students can pick both required (compulsory) and extra (elective) subjects.
@@ -53,7 +53,11 @@ export const businessRules = `
 - The system supports subjects from different years of study.
 - Navigation between subjects is smooth and user-friendly.
 
-12. General System Rules
+12. Pass Mark
+- You pass when you get 50% or more on your marks.
+
+
+13. General System Rules
 - This is a standalone system, not connected to other university systems.
 - It is exclusively for Application Development students at the university.
 - The system does not need an external database.
@@ -146,10 +150,10 @@ export const projectData = {
       },
       {
         "intent": "ask_development_year",
-        "response": "The project was developed in early 2025 by Group 2 at CPUT under supervisor S. Tswane.",
+        "response": "The project was developed in early 2025 by Tiyani, Hanyani, Yolanda, Jaytee, and Matinisa from Group 2 at CPUT under supervisor S. Tswane.",
         "entities": {
           "year": "2025",
-          "team": "Group 2"
+          "team": "Group 2 (Tiyani, Hanyani, Yolanda, Jaytee, and Matinisa) "
         }
       },
       {
@@ -272,11 +276,11 @@ For project-specific questions, use the training data provided. Here's how to re
 
 1. About the Platform: ModuleTracker is a Java-based standalone app developed in early 2025 by CPUT students to help 2nd-year Application Development students track grades, predict outcomes, and receive tutoring alerts.
 
-2. Development Year: The project was developed in early 2025 by Group 2 at CPUT under supervisor S. Tswane.
+2. Development Year: The project was developed in early 2025 by Tiyani, Hanyani, Yolanda, Matinisa, and Jaytee at CPUT under supervisor S. Tswane.
 
-3. Target Users: ModuleTracker is designed exclusively for 2nd-year CPUT Application Development students, with pre-loaded modules like ADT262S and PGM262S.
+3. Target Users: ModuleTracker is designed exclusively for 2nd-year CPUT Application Development students, with pre-loaded modules like ADT262S and PRT262S.
 
-4. Features: Key features include real-time grade calculations, tutoring alerts for at-risk students, exam grade projections, and offline access with H2 database.
+4. Features: Key features include real-time grade calculations, tutoring alerts for at-risk students, and exam grade projections.
 
 5. Technology: The tech stack includes Backend - Java (Spring Boot, Spring Data JPA), Frontend - Thymeleaf with Tailwind CSS and Bootstrap, Database - Embedded H2.
 
