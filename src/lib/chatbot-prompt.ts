@@ -1,4 +1,3 @@
-
 // Business Rules Definition
 export const businessRules = `
 1. User Authentication
@@ -505,9 +504,9 @@ function getContextualFollowUp(intent: string | null, entities: string[]): strin
         '1': ['How do students change their account details?', 'Is there a password recovery system?'],
         '2': ['How does module selection work across different years?', 'Can students change module selections after term starts?'],
         '3': ['Can you explain how assessment configuration affects final grades?', 'Are there limits to how much each assessment can be weighted?'],
-        '4': ['What happens if term weights don't add up to 100%?', 'Can term weights be adjusted mid-semester?'],
-        '5': ['Can grades be edited after they're entered?', 'How is the grade history tracked?'],
-        '6': ['How frequently are grades updated in the system?', 'Can you explain the university's grading system?'],
+        '4': ['What happens if term weights don\'t add up to 100%?', 'Can term weights be adjusted mid-semester?'],
+        '5': ['Can grades be edited after they\'re entered?', 'How is the grade history tracked?'],
+        '6': ['How frequently are grades updated in the system?', 'Can you explain the university\'s grading system?'],
         '7': ['What visual indicators are used for progress tracking?', 'How do progress dashboards work?'],
         '8': ['What specific support is offered for struggling students?', 'How are tutoring interventions implemented?'],
         '9': ['How accurate are the grade projections?', 'Can projections account for dropped assignments?'],
@@ -616,7 +615,7 @@ function getBusinessRuleSuggestions(entities: string[]): string | null {
 // ENHANCED RESPONSE GENERATOR
 export function getChatbotResponse(userMessage: string): string {
   // Get current time for personalized greetings
-  const currentDate = new Date("2025-07-20T18:57:52.000Z"); // Using the provided timestamp
+  const currentDate = new Date("2025-07-20T19:03:53.000Z"); // Using the provided timestamp
   const currentHour = currentDate.getHours();
   
   let timeGreeting = "";
@@ -913,7 +912,7 @@ CONVERSATION STYLE:
 - Include bullet points for clarity when listing multiple items
 - Recognize when users introduce themselves and personalize subsequent interactions
 - Adapt your responses based on conversation context and user interests
-- Timestamp: July 20, 2025, 18:57:52 UTC
+- Current timestamp: July 20, 2025, 19:03:53 UTC
 
 BUSINESS RULES AWARENESS:
 Always ensure your responses align with ModuleTracker's business rules, especially regarding:
