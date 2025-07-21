@@ -79,11 +79,13 @@ This platform targets 2nd year Application Development students, but its design 
   
 - <img width="1917" height="885" alt="Screenshot 2025-07-21 114524" src="https://github.com/user-attachments/assets/752211d3-f30e-4a6a-8f3f-a157031ddd23" />
 -
--<img width="1889" height="879" alt="Screenshot 2025-07-21 114453" src="https://github.com/user-attachments/assets/ba05082b-877f-4782-a003-7bd9c71fa82b" />
+ <img width="1889" height="879" alt="Screenshot 2025-07-21 114453" src="https://github.com/user-attachments/assets/ba05082b-877f-4782-a003-7bd9c71fa82b" />
 
 **Chatbot**
+
 - <img width="1906" height="889" alt="Screenshot 2025-07-21 114539" src="https://github.com/user-attachments/assets/c038e4ad-9227-4de5-8c90-12dff30b4e5c" />
--<img width="1918" height="884" alt="Screenshot 2025-07-21 114624" src="https://github.com/user-attachments/assets/3e1aa3e6-120e-425f-a0af-42eb54e9576a" />
+-
+<img width="1918" height="884" alt="Screenshot 2025-07-21 114624" src="https://github.com/user-attachments/assets/3e1aa3e6-120e-425f-a0af-42eb54e9576a" />
 
 
 
