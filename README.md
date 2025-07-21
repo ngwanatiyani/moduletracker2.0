@@ -104,6 +104,9 @@ This platform targets 2nd year Application Development students, but its design 
 
 ## Getting Started
 
+**Use this link to access the website: 
+https://moduletracker.vercel.app/**
+
 1. **Clone the repository**
 
    ```bash
