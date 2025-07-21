@@ -68,6 +68,9 @@ This platform targets 2nd year Application Development students, but its design 
  <img width="1919" height="878" alt="Screenshot 2025-07-21 104423" src="https://github.com/user-attachments/assets/f1f3f174-1c4a-4bcb-9270-6e19085fd72a" />
  -
  <img width="1916" height="891" alt="Screenshot 2025-07-21 104441" src="https://github.com/user-attachments/assets/5ccbe1b2-7a89-451c-aac7-5b0f300e3c6c" />
+ -
+ <img width="1917" height="879" alt="Screenshot 2025-07-21 104459" src="https://github.com/user-attachments/assets/d2f8eb47-20fa-44f5-ace7-2a72f3fcb55f" />
+
 - Term breakdown cards and assessment editing
 - Performance metrics and grade calculator
 - Study tips dialog and tutoring booking form
