@@ -64,8 +64,8 @@ This platform targets 2nd year Application Development students, but its design 
 ## Screenshots
 
 > _Screenshots feature:_
-- **Modern home**
-- <img width="1919" height="878" alt="Screenshot 2025-07-21 104423" src="https://github.com/user-attachments/assets/f1f3f174-1c4a-4bcb-9270-6e19085fd72a" />
+- **Modern home page**
+ <img width="1919" height="878" alt="Screenshot 2025-07-21 104423" src="https://github.com/user-attachments/assets/f1f3f174-1c4a-4bcb-9270-6e19085fd72a" />
 - Term breakdown cards and assessment editing
 - Performance metrics and grade calculator
 - Study tips dialog and tutoring booking form
