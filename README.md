@@ -1,6 +1,6 @@
 # ModuleTracker - Your Academic Success Hub
 
-ModuleTracker is a academic progress tracking platform designed specifically for 2nd year AppDev students at the Cape Peninsula University of Technology (CPUT). This platform provides a modern 3D interface with smart analytics, progress monitoring, performance insights, and academic support tools to empower students in managing their modules, tracking their grades, and achieving their academic goals.
+ModuleTracker is an academic progress tracking platform designed specifically for 2nd year AppDev students at the Cape Peninsula University of Technology (CPUT). This platform provides a modern 3D interface with smart analytics, progress monitoring, performance insights, and academic support tools to empower students in managing their modules, tracking their grades, and achieving their academic goals.
 
 ---
 
@@ -22,12 +22,12 @@ ModuleTracker is a academic progress tracking platform designed specifically for
 ## Overview
 
 ModuleTracker is built to help students:
+
 - Track progress across all modules and terms.
 - Visualize analytics through beautiful charts and 3D stats.
 - Get personalized study tips and academic support.
 - Manage assessments, grades, and module requirements efficiently.
 - Connect with tutoring resources and academic support.
-
 
 This platform targets 2nd year Application Development students, but its design is extensible for all CPUT students.
 
@@ -49,53 +49,55 @@ This platform targets 2nd year Application Development students, but its design 
 
 ## Tech Stack
 
-- **Frontend:** React, TypeScript, Tailwind CSS
-- **Backend:** Java
-- **State Management:** React Context, useState
-- **UI Components:** Radix UI, Lucide Icons, Shadcn/UI
-- **Charts:** Recharts
-- **Forms & Validation:** React Hook Form
-- **AI Integration:** Google Generative AI (Gemini)
-- **Tooltips, Dialogs, Toasts:** Radix UI, Sonner
-- **Persistence:** LocalStorage (demo), ready for backend integration
+- **Frontend:** React, TypeScript, Tailwind CSS  
+- **Backend:** Java  
+- **State Management:** React Context, useState  
+- **UI Components:** Radix UI, Lucide Icons, Shadcn/UI  
+- **Charts:** Recharts  
+- **Forms & Validation:** React Hook Form  
+- **AI Integration:** Google Generative AI (Gemini)  
+- **Tooltips, Dialogs, Toasts:** Radix UI, Sonner  
+- **Persistence:** LocalStorage (demo), ready for backend integration  
 
 ---
 
 ## Screenshots
 
-> _Screenshots feature:_
+**Modern Home Page**
 
-- **Modern home page**
- <img width="1919" height="878" alt="Screenshot 2025-07-21 104423" src="https://github.com/user-attachments/assets/f1f3f174-1c4a-4bcb-9270-6e19085fd72a" />
- 
- <img width="1916" height="891" alt="Screenshot 2025-07-21 104441" src="https://github.com/user-attachments/assets/5ccbe1b2-7a89-451c-aac7-5b0f300e3c6c" />
- 
- <img width="1917" height="879" alt="Screenshot 2025-07-21 104459" src="https://github.com/user-attachments/assets/d2f8eb47-20fa-44f5-ace7-2a72f3fcb55f" />
- 
- **Sign Up page**
+<img width="1919" height="878" alt="Screenshot 2025-07-21 104423" src="https://github.com/user-attachments/assets/f1f3f174-1c4a-4bcb-9270-6e19085fd72a" />
 
- <img width="1898" height="873" alt="Screenshot 2025-07-21 114137" src="https://github.com/user-attachments/assets/4ae97a41-cd62-4c4e-b81e-b576a3078203" />
+<img width="1916" height="891" alt="Screenshot 2025-07-21 104441" src="https://github.com/user-attachments/assets/5ccbe1b2-7a89-451c-aac7-5b0f300e3c6c" />
 
-  -
- **Dashboard**
-  
- <img width="1917" height="885" alt="Screenshot 2025-07-21 114524" src="https://github.com/user-attachments/assets/752211d3-f30e-4a6a-8f3f-a157031ddd23" />
+<img width="1917" height="879" alt="Screenshot 2025-07-21 104459" src="https://github.com/user-attachments/assets/d2f8eb47-20fa-44f5-ace7-2a72f3fcb55f" />
 
- <img width="1889" height="879" alt="Screenshot 2025-07-21 114453" src="https://github.com/user-attachments/assets/ba05082b-877f-4782-a003-7bd9c71fa82b" />
+---
 
--
+**Sign Up Page**
+
+<img width="1898" height="873" alt="Screenshot 2025-07-21 114137" src="https://github.com/user-attachments/assets/4ae97a41-cd62-4c4e-b81e-b576a3078203" />
+
+---
+
+**Dashboard**
+
+<img width="1917" height="885" alt="Screenshot 2025-07-21 114524" src="https://github.com/user-attachments/assets/752211d3-f30e-4a6a-8f3f-a157031ddd23" />
+
+<img width="1889" height="879" alt="Screenshot 2025-07-21 114453" src="https://github.com/user-attachments/assets/ba05082b-877f-4782-a003-7bd9c71fa82b" />
+
+---
+
 **Chatbot**
 
- <img width="1906" height="889" alt="Screenshot 2025-07-21 114539" src="https://github.com/user-attachments/assets/c038e4ad-9227-4de5-8c90-12dff30b4e5c" />
+<img width="1906" height="889" alt="Screenshot 2025-07-21 114539" src="https://github.com/user-attachments/assets/c038e4ad-9227-4de5-8c90-12dff30b4e5c" />
 
 <img width="1918" height="884" alt="Screenshot 2025-07-21 114624" src="https://github.com/user-attachments/assets/3e1aa3e6-120e-425f-a0af-42eb54e9576a" />
 
-  
+---
+
 - Term breakdown cards and assessment editing
 - Performance metrics and grade calculator
-
 - Study tips dialog and tutoring booking form
-
 - Gemini-powered chatbot for help
 
 ---
@@ -103,12 +105,14 @@ This platform targets 2nd year Application Development students, but its design 
 ## Getting Started
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/ngwanatiyani/moduletracker2.0.git
    cd moduletracker2.0
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install
    # or
@@ -116,6 +120,7 @@ This platform targets 2nd year Application Development students, but its design 
    ```
 
 3. **Run the development server**
+
    ```bash
    npm run dev
    # or
@@ -123,6 +128,7 @@ This platform targets 2nd year Application Development students, but its design 
    ```
 
 4. **Open in your browser**
+
    ```
    http://localhost:3000
    ```
@@ -165,12 +171,14 @@ src/
 ## Contributing
 
 Contributions are welcome! To contribute:
+
 1. Fork this repository.
 2. Create a new feature branch.
 3. Commit your changes with clear messages.
 4. Push to your fork and submit a PR.
 
 Before submitting, please:
+
 - Write clear, concise code and comments.
 - Add/modify components in the `src/components` directory.
 - Test your changes on both desktop and mobile.
@@ -189,6 +197,6 @@ Before submitting, please:
 ## License
 
 © 2025 ModuleTracker - Group 2 CPUT  
-Supervisor: S. Tswane  
+Supervisor: S. Tswane
 
 ---
