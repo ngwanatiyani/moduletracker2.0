@@ -72,7 +72,7 @@ This platform targets 2nd year Application Development students, but its design 
  
  <img width="1917" height="879" alt="Screenshot 2025-07-21 104459" src="https://github.com/user-attachments/assets/d2f8eb47-20fa-44f5-ace7-2a72f3fcb55f" />
  
-- **Sign Up page**
+ **Sign Up page**
 
  <img width="1898" height="873" alt="Screenshot 2025-07-21 114137" src="https://github.com/user-attachments/assets/4ae97a41-cd62-4c4e-b81e-b576a3078203" />
 
