@@ -107,39 +107,6 @@ This platform targets 2nd year Application Development students, but its design 
 **Use this link to access the website: 
 https://moduletracker.vercel.app/**
 
-1. **Clone the repository**
-
-   ```bash
-   git clone https://github.com/ngwanatiyani/moduletracker2.0.git
-   cd moduletracker2.0
-   ```
-
-2. **Install dependencies**
-
-   ```bash
-   npm install
-   # or
-   yarn install
-   ```
-
-3. **Run the development server**
-
-   ```bash
-   npm run dev
-   # or
-   yarn dev
-   ```
-
-4. **Open in your browser**
-
-   ```
-   http://localhost:3000
-   ```
-
-> _Note: The platform uses localStorage for demo data persistence. Replace with real backend as needed._
-
----
-
 ## Project Structure
 
 ```
