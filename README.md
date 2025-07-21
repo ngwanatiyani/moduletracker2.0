@@ -14,9 +14,6 @@ ModuleTracker is an academic progress tracking platform designed specifically fo
 - [Project Structure](#project-structure)
 - [Core Components](#core-components)
 - [Contributing](#contributing)
-- [Contact](#contact)
-- [License](#license)
-
 ---
 
 ## Overview
@@ -156,17 +153,6 @@ Before submitting, please:
 
 ---
 
-## Contact
 
-- **Support Email:** support@moduletracker.edu
-- **Phone:** +27 21 460 3779
-- **Location:** Cape Peninsula University of Technology
-
----
-
-## License
-
-© 2025 ModuleTracker - Group 2 CPUT  
-Supervisor: S. Tswane
 
 ---
