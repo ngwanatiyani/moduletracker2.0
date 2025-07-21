@@ -64,31 +64,29 @@ This platform targets 2nd year Application Development students, but its design 
 ## Screenshots
 
 > _Screenshots feature:_
+
 - **Modern home page**
  <img width="1919" height="878" alt="Screenshot 2025-07-21 104423" src="https://github.com/user-attachments/assets/f1f3f174-1c4a-4bcb-9270-6e19085fd72a" />
- -
+ 
  <img width="1916" height="891" alt="Screenshot 2025-07-21 104441" src="https://github.com/user-attachments/assets/5ccbe1b2-7a89-451c-aac7-5b0f300e3c6c" />
- -
+ 
  <img width="1917" height="879" alt="Screenshot 2025-07-21 104459" src="https://github.com/user-attachments/assets/d2f8eb47-20fa-44f5-ace7-2a72f3fcb55f" />
  
 - **Sign Up page**
 
-- <img width="1898" height="873" alt="Screenshot 2025-07-21 114137" src="https://github.com/user-attachments/assets/4ae97a41-cd62-4c4e-b81e-b576a3078203" />
+ <img width="1898" height="873" alt="Screenshot 2025-07-21 114137" src="https://github.com/user-attachments/assets/4ae97a41-cd62-4c4e-b81e-b576a3078203" />
 
  **Dashboard**
   
-- <img width="1917" height="885" alt="Screenshot 2025-07-21 114524" src="https://github.com/user-attachments/assets/752211d3-f30e-4a6a-8f3f-a157031ddd23" />
--
+ <img width="1917" height="885" alt="Screenshot 2025-07-21 114524" src="https://github.com/user-attachments/assets/752211d3-f30e-4a6a-8f3f-a157031ddd23" />
+
  <img width="1889" height="879" alt="Screenshot 2025-07-21 114453" src="https://github.com/user-attachments/assets/ba05082b-877f-4782-a003-7bd9c71fa82b" />
 
 **Chatbot**
 
 - <img width="1906" height="889" alt="Screenshot 2025-07-21 114539" src="https://github.com/user-attachments/assets/c038e4ad-9227-4de5-8c90-12dff30b4e5c" />
--
+
 <img width="1918" height="884" alt="Screenshot 2025-07-21 114624" src="https://github.com/user-attachments/assets/3e1aa3e6-120e-425f-a0af-42eb54e9576a" />
-
-
-
 
   
 - Term breakdown cards and assessment editing
