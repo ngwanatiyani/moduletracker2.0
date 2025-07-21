@@ -1,49 +1,165 @@
-# Welcome to CPUT Module Tracker
+# ModuleTracker - Your Academic Success Hub
 
-**Use your preferred IDE**
+ModuleTracker is a academic progress tracking platform designed specifically for 2nd year AppDev students at the Cape Peninsula University of Technology (CPUT). This platform provides a modern 3D interface with smart analytics, progress monitoring, performance insights, and academic support tools to empower students in managing their modules, tracking their grades, and achieving their academic goals.
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+---
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## Table of Contents
 
-Follow these steps:
+- [Overview](#overview)
+- [Key Features](#key-features)
+- [Tech Stack](#tech-stack)
+- [Screenshots](#screenshots)
+- [Getting Started](#getting-started)
+- [Project Structure](#project-structure)
+- [Core Components](#core-components)
+- [Contributing](#contributing)
+- [Contact](#contact)
+- [License](#license)
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+---
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+## Overview
 
-# Step 3: Install the necessary dependencies.
-npm i
+ModuleTracker is built to help students:
+- Track progress across all modules and terms.
+- Visualize analytics through beautiful charts and 3D stats.
+- Get personalized study tips and academic support.
+- Manage assessments, grades, and module requirements efficiently.
+- Connect with tutoring resources and academic support.
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+This platform targets 2nd year Application Development students, but its design is extensible for all CPUT students.
+
+---
+
+## Key Features
+
+- **Modern 3D Dashboard:** Interactive cards and charts for visualizing academic data.
+- **Module & Term Management:** Switch between modules, view term breakdowns, and edit assessments.
+- **Performance Analytics:** Real-time analytics of grades, completion rates, and progress trends.
+- **Grade Calculator:** Calculate potential final grades and required marks for targets.
+- **Study Tips & Strategies:** In-app dialog with actionable study techniques.
+- **Academic Support:** Book tutoring sessions directly from the dashboard.
+- **AI Chatbot:** Gemini-powered assistant for platform help and academic queries.
+- **Responsive Design:** Optimized for both desktop and mobile devices.
+- **Professional Look:** Follows modern UI/UX conventions with glassmorphism and gradient backgrounds.
+
+---
+
+## Tech Stack
+
+- **Frontend:** React, TypeScript, Tailwind CSS
+- **Backend:** Java
+- **State Management:** React Context, useState
+- **UI Components:** Radix UI, Lucide Icons, Shadcn/UI
+- **Charts:** Recharts
+- **Forms & Validation:** React Hook Form
+- **AI Integration:** Google Generative AI (Gemini)
+- **Tooltips, Dialogs, Toasts:** Radix UI, Sonner
+- **Persistence:** LocalStorage (demo), ready for backend integration
+
+---
+
+## Screenshots
+
+> _Screenshots feature:_
+- Modern dashboard with module selection and analytics
+- Term breakdown cards and assessment editing
+- Performance metrics and grade calculator
+- Study tips dialog and tutoring booking form
+- Gemini-powered chatbot for help
+
+---
+
+## Getting Started
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/ngwanatiyani/moduletracker2.0.git
+   cd moduletracker2.0
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
+
+3. **Run the development server**
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
+
+4. **Open in your browser**
+   ```
+   http://localhost:3000
+   ```
+
+> _Note: The platform uses localStorage for demo data persistence. Replace with real backend as needed._
+
+---
+
+## Project Structure
+
+```
+src/
+ ├─ components/        # Reusable UI components (cards, buttons, forms, navigation)
+ ├─ dashboard/         # Dashboard-specific components (header, stats, sidebar, analytics)
+ ├─ contexts/          # React Context for authentication, state
+ ├─ data/              # Module/assessment mock data
+ ├─ hooks/             # Custom React hooks (toast, scroll position)
+ ├─ lib/               # Utilities and configuration
+ ├─ pages/             # Page-level components (Home, Dashboard, Signup, Login)
+ ├─ App.tsx            # Main app entry
+ └─ main.tsx           # ReactDOM entry
 ```
 
-**Edit a file directly in GitHub**
+---
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Core Components
 
-**Use GitHub Codespaces**
+- **DashboardContent:** Main dashboard grid with header, stats, module dropdown, analytics, and sidebars.
+- **ModuleDropdown & ModuleSelector:** Select current module to view/edit.
+- **Stats3D & AnalyticsSection:** 3D stats and charts for grades, progress, and term comparison.
+- **ModernTermCard:** Editable term cards for viewing and updating assessments.
+- **PerformanceMetrics & ActionPanel:** Insights, grade calculator, and actions for academic support.
+- **StudyTips & TutoringBooking:** Dialogs for study advice and tutoring session booking.
+- **Chatbot:** Gemini-powered AI assistant for platform and academic queries.
+- **Navigation (ScrollAdaptiveNav, HomeNavigation):** Responsive navigation adapting to scroll and device.
+- **Footer & ProfessionalFooter:** Branded footer with contact info and CPUT attribution.
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+---
 
-## What technologies are used for this project?
+## Contributing
 
-This project is built with:
+Contributions are welcome! To contribute:
+1. Fork this repository.
+2. Create a new feature branch.
+3. Commit your changes with clear messages.
+4. Push to your fork and submit a PR.
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+Before submitting, please:
+- Write clear, concise code and comments.
+- Add/modify components in the `src/components` directory.
+- Test your changes on both desktop and mobile.
+- Ensure there are no lint or type errors.
 
+---
 
+## Contact
+
+- **Support Email:** support@moduletracker.edu
+- **Phone:** +27 21 460 3779
+- **Location:** Cape Peninsula University of Technology
+
+---
+
+## License
+
+© 2025 ModuleTracker - Group 2 CPUT  
+Supervisor: S. Tswane  
+
+---
