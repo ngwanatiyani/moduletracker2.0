@@ -28,6 +28,7 @@ ModuleTracker is built to help students:
 - Manage assessments, grades, and module requirements efficiently.
 - Connect with tutoring resources and academic support.
 
+
 This platform targets 2nd year Application Development students, but its design is extensible for all CPUT students.
 
 ---
@@ -64,6 +65,7 @@ This platform targets 2nd year Application Development students, but its design 
 
 > _Screenshots feature:_
 - Modern dashboard with module selection and analytics
+- <img width="1919" height="878" alt="Screenshot 2025-07-21 104423" src="https://github.com/user-attachments/assets/f1f3f174-1c4a-4bcb-9270-6e19085fd72a" />
 - Term breakdown cards and assessment editing
 - Performance metrics and grade calculator
 - Study tips dialog and tutoring booking form
