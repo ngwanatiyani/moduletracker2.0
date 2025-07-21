@@ -131,7 +131,7 @@ src/
 - **StudyTips & TutoringBooking:** Dialogs for study advice and tutoring session booking.
 - **Chatbot:** Gemini-powered AI assistant for platform and academic queries.
 - **Navigation (ScrollAdaptiveNav, HomeNavigation):** Responsive navigation adapting to scroll and device.
-- **Footer & ProfessionalFooter:** Branded footer with contact info and CPUT attribution.
+
 
 ---
 
