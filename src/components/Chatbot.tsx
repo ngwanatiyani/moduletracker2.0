@@ -21,7 +21,7 @@ interface Message {
   text: string;
 }
 
-const API_KEY = 'AIzaSyC_f3s5j51VF4s_pfK_0ejhahOCRY1zg50';
+const API_KEY = 'AIzaSyA1_Lp__OWcDHM72DcThodY8Ao_lw-SOas';
 
 const Chatbot: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
