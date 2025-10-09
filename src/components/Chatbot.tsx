@@ -13,15 +13,14 @@ import {
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { useToast } from "@/components/ui/use-toast";
-import { GoogleGenerativeAI } from '@google/generative-ai';
-import { systemPrompt } from '@/lib/chatbot-prompt';
+const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/chat`;
 
 interface Message {
   role: 'user' | 'model';
   text: string;
 }
 
-const API_KEY = 'AIzaSyA1_Lp__OWcDHM72DcThodY8Ao_lw-SOas';
+
 
 const Chatbot: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -49,46 +48,114 @@ const Chatbot: React.FC = () => {
     if (!input.trim() || isLoading) return;
 
     const userMessage: Message = { role: 'user', text: input };
-    setMessages(prev => [...prev, userMessage]);
+    setMessages((prev) => [...prev, userMessage]);
     setInput('');
     setIsLoading(true);
 
+    // Helper to progressively update the assistant message
+    let assistantSoFar = '';
+    const upsertAssistant = (delta: string) => {
+      assistantSoFar += delta;
+      setMessages((prev) => {
+        const last = prev[prev.length - 1];
+        if (last?.role === 'model') {
+          return prev.map((m, i) => (i === prev.length - 1 ? { ...m, text: assistantSoFar } : m));
+        }
+        return [...prev, { role: 'model', text: assistantSoFar }];
+      });
+    };
+
     try {
-      const genAI = new GoogleGenerativeAI(API_KEY);
-      const model = genAI.getGenerativeModel({ 
-        model: 'gemini-1.5-flash',
-        generationConfig: {
-          temperature: 0.7,
-          topP: 0.95,
-          maxOutputTokens: 2048,
+      // Map local messages to backend format
+      const history = [...messages, userMessage].map((m) => ({
+        role: m.role === 'model' ? 'assistant' : 'user',
+        content: m.text,
+      }));
+
+      const resp = await fetch(CHAT_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
         },
-      });
-      
-      const chat = model.startChat({
-        history: messages.slice(0, -1).map(msg => ({
-          role: msg.role,
-          parts: [{ text: msg.text }],
-        })),
-        generationConfig: {
-          temperature: 0.7,
-        },
+        body: JSON.stringify({ messages: history }),
       });
 
-      const result = await chat.sendMessage([
-        { text: `${systemPrompt}\n\nUser question: ${input}` }
-      ]);
-      const response = await result.response;
-      const text = response.text();
+      if (!resp.ok || !resp.body) {
+        let description = 'Failed to start AI response.';
+        try {
+          const errJson = await resp.json();
+          if (errJson?.error) description = errJson.error;
+        } catch {}
+        toast({
+          title: 'Assistant unavailable',
+          description,
+          variant: 'destructive',
+        });
+        setIsLoading(false);
+        return;
+      }
 
-      setMessages(prev => [...prev, { role: 'model', text }]);
+      const reader = resp.body.getReader();
+      const decoder = new TextDecoder();
+      let textBuffer = '';
+      let streamDone = false;
+
+      while (!streamDone) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        textBuffer += decoder.decode(value, { stream: true });
+
+        let newlineIndex: number;
+        while ((newlineIndex = textBuffer.indexOf('\n')) !== -1) {
+          let line = textBuffer.slice(0, newlineIndex);
+          textBuffer = textBuffer.slice(newlineIndex + 1);
+
+          if (line.endsWith('\r')) line = line.slice(0, -1);
+          if (line.startsWith(':') || line.trim() === '') continue;
+          if (!line.startsWith('data: ')) continue;
+
+          const jsonStr = line.slice(6).trim();
+          if (jsonStr === '[DONE]') {
+            streamDone = true;
+            break;
+          }
+
+          try {
+            const parsed = JSON.parse(jsonStr);
+            const content = parsed.choices?.[0]?.delta?.content as string | undefined;
+            if (content) upsertAssistant(content);
+          } catch {
+            // Incomplete JSON split across chunks: put it back and wait for more data
+            textBuffer = line + '\n' + textBuffer;
+            break;
+          }
+        }
+      }
+
+      // Final flush
+      if (textBuffer.trim()) {
+        for (let raw of textBuffer.split('\n')) {
+          if (!raw) continue;
+          if (raw.endsWith('\r')) raw = raw.slice(0, -1);
+          if (raw.startsWith(':') || raw.trim() === '') continue;
+          if (!raw.startsWith('data: ')) continue;
+          const jsonStr = raw.slice(6).trim();
+          if (jsonStr === '[DONE]') continue;
+          try {
+            const parsed = JSON.parse(jsonStr);
+            const content = parsed.choices?.[0]?.delta?.content as string | undefined;
+            if (content) upsertAssistant(content);
+          } catch {}
+        }
+      }
     } catch (error) {
-      console.error('Chatbot error:', error);
+      console.error('Chatbot stream error:', error);
       toast({
         title: 'Error',
-        description: 'Failed to get a response. Please try again.',
-        variant: 'destructive'
+        description: 'Failed to get a response. Please try again later.',
+        variant: 'destructive',
       });
-      setMessages(prev => prev.slice(0, prev.length - 1));
     } finally {
       setIsLoading(false);
     }
