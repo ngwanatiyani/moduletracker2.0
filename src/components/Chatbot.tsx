@@ -55,11 +55,28 @@ const Chatbot: React.FC = () => {
 
     try {
       const genAI = new GoogleGenerativeAI(API_KEY);
-      const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+      const model = genAI.getGenerativeModel({ 
+        model: 'gemini-1.5-pro',
+        generationConfig: {
+          temperature: 0.7,
+          topP: 0.95,
+          maxOutputTokens: 1024,
+        },
+      });
       
-      const prompt = `${systemPrompt}\n\nUser question: ${input}`;
+      const chat = model.startChat({
+        history: messages.slice(0, -1).map(msg => ({
+          role: msg.role,
+          parts: [{ text: msg.text }],
+        })),
+        generationConfig: {
+          temperature: 0.7,
+        },
+      });
 
-      const result = await model.generateContent(prompt);
+      const result = await chat.sendMessage([
+        { text: `${systemPrompt}\n\nUser question: ${input}` }
+      ]);
       const response = await result.response;
       const text = response.text();
 
@@ -68,7 +85,7 @@ const Chatbot: React.FC = () => {
       console.error('Chatbot error:', error);
       toast({
         title: 'Error',
-        description: 'Failed to get a response. The API key might be invalid or expired.',
+        description: 'Failed to get a response. Please try again.',
         variant: 'destructive'
       });
       setMessages(prev => prev.slice(0, prev.length - 1));
