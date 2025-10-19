@@ -41,7 +41,6 @@ const Dashboard = () => {
         sidebarOpen={sidebarOpen}
         setSidebarOpen={setSidebarOpen}
         onLogout={handleLogout}
-        showChatbot={true}
         showSidebar={false}
       >
         <DashboardContent

@@ -5,7 +5,6 @@ import { Skeleton } from '@/components/ui/skeleton';
 
 // Lazy load components for better performance
 const MobileSidebar = lazy(() => import('@/components/MobileSidebar'));
-const Chatbot = lazy(() => import('@/components/Chatbot'));
 
 interface OptimizedLayoutProps {
   children: React.ReactNode;
@@ -13,7 +12,6 @@ interface OptimizedLayoutProps {
   setSidebarOpen: (open: boolean) => void;
   onLogout: () => void;
   showSidebar?: boolean;
-  showChatbot?: boolean;
 }
 
 const OptimizedLayout: React.FC<OptimizedLayoutProps> = ({
@@ -21,8 +19,7 @@ const OptimizedLayout: React.FC<OptimizedLayoutProps> = ({
   sidebarOpen,
   setSidebarOpen,
   onLogout,
-  showSidebar = true,
-  showChatbot = true
+  showSidebar = true
 }) => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-orange-50/20 to-blue-50/30 w-full overflow-x-hidden">
@@ -74,11 +71,6 @@ const OptimizedLayout: React.FC<OptimizedLayoutProps> = ({
         </div>
       </div>
 
-      {showChatbot && (
-        <Suspense fallback={null}>
-          <Chatbot />
-        </Suspense>
-      )}
     </div>
   );
 };
