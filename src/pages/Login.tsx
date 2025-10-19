@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -7,32 +6,39 @@ import { GraduationCap, Menu, X } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
+
+const loginSchema = z.object({
+  studentNumber: z.string()
+    .trim()
+    .length(9, "Student number must be exactly 9 digits")
+    .regex(/^\d{9}$/, "Student number must contain only numbers"),
+  password: z.string()
+    .min(8, "Password must be at least 8 characters long"),
+});
+
+type LoginFormValues = z.infer<typeof loginSchema>;
 
 const Login = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [studentNumber, setStudentNumber] = useState("");
-  const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
   
   const navigate = useNavigate();
   const { login } = useAuth();
   const { toast } = useToast();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
+  const form = useForm<LoginFormValues>({
+    resolver: zodResolver(loginSchema),
+    defaultValues: {
+      studentNumber: "",
+      password: "",
+    },
+  });
 
-    if (!studentNumber || !password) {
-      toast({
-        title: "Error",
-        description: "Please fill in all fields",
-        variant: "destructive",
-      });
-      setIsLoading(false);
-      return;
-    }
-
-    const success = await login(studentNumber, password);
+  const onSubmit = async (data: LoginFormValues) => {
+    const success = await login(data.studentNumber, data.password);
     
     if (success) {
       toast({
@@ -47,8 +53,6 @@ const Login = () => {
         variant: "destructive",
       });
     }
-    
-    setIsLoading(false);
   };
 
   return (
@@ -121,51 +125,67 @@ const Login = () => {
               <div className="max-w-sm mx-auto">
                 <h3 className="text-xl md:text-2xl font-semibold text-gray-800 mb-6 text-center">Sign In</h3>
                 
-                <form className="space-y-4" onSubmit={handleSubmit}>
-                  {/* Student Number */}
-                  <div>
-                    <Label htmlFor="studentNumber" className="text-gray-600 mb-2 block text-sm">Student Number</Label>
-                    <Input 
-                      id="studentNumber"
-                      value={studentNumber}
-                      onChange={(e) => setStudentNumber(e.target.value)}
-                      placeholder="219xxxxx"
-                      className="border-gray-200 focus:border-blue-500 h-10 text-sm w-full"
-                      required
+                <Form {...form}>
+                  <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
+                    {/* Student Number */}
+                    <FormField
+                      control={form.control}
+                      name="studentNumber"
+                      render={({ field }) => (
+                        <FormItem>
+                          <Label htmlFor="studentNumber" className="text-gray-600 mb-2 block text-sm">Student Number</Label>
+                          <FormControl>
+                            <Input 
+                              id="studentNumber"
+                              placeholder="219xxxxx"
+                              className="border-gray-200 focus:border-blue-500 h-10 text-sm w-full"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage className="text-xs" />
+                        </FormItem>
+                      )}
                     />
-                  </div>
 
-                  {/* Password */}
-                  <div>
-                    <Label htmlFor="password" className="text-gray-600 mb-2 block text-sm">Password</Label>
-                    <Input 
-                      id="password"
-                      type="password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      placeholder="••••••••••"
-                      className="border-gray-200 focus:border-blue-500 h-10 text-sm w-full"
-                      required
+                    {/* Password */}
+                    <FormField
+                      control={form.control}
+                      name="password"
+                      render={({ field }) => (
+                        <FormItem>
+                          <Label htmlFor="password" className="text-gray-600 mb-2 block text-sm">Password</Label>
+                          <FormControl>
+                            <Input 
+                              id="password"
+                              type="password"
+                              placeholder="••••••••••"
+                              className="border-gray-200 focus:border-blue-500 h-10 text-sm w-full"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage className="text-xs" />
+                        </FormItem>
+                      )}
                     />
-                  </div>
 
-                  {/* Login Button */}
-                  <Button 
-                    type="submit"
-                    disabled={isLoading}
-                    className="w-full bg-slate-900 hover:bg-slate-800 text-white py-2 rounded-lg font-medium text-sm h-10 mt-6"
-                  >
-                    {isLoading ? "Signing In..." : "Sign In"}
-                  </Button>
+                    {/* Login Button */}
+                    <Button 
+                      type="submit"
+                      disabled={form.formState.isSubmitting}
+                      className="w-full bg-slate-900 hover:bg-slate-800 text-white py-2 rounded-lg font-medium text-sm h-10 mt-6"
+                    >
+                      {form.formState.isSubmitting ? "Signing In..." : "Sign In"}
+                    </Button>
 
-                  {/* Sign Up Link */}
-                  <p className="text-center text-gray-600 mt-4 text-sm">
-                    Don't have an account?{" "}
-                    <Link to="/signup" className="text-blue-500 hover:text-blue-600 font-medium">
-                      Sign Up Here
-                    </Link>
-                  </p>
-                </form>
+                    {/* Sign Up Link */}
+                    <p className="text-center text-gray-600 mt-4 text-sm">
+                      Don't have an account?{" "}
+                      <Link to="/signup" className="text-blue-500 hover:text-blue-600 font-medium">
+                        Sign Up Here
+                      </Link>
+                    </p>
+                  </form>
+                </Form>
               </div>
             </div>
           </div>

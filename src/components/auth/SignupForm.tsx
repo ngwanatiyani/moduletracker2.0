@@ -1,60 +1,63 @@
-
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
+
+const signupSchema = z.object({
+  firstName: z.string()
+    .trim()
+    .min(1, "First name is required")
+    .regex(/^[A-Za-z]+$/, "First name must contain only alphabetic characters"),
+  surname: z.string()
+    .trim()
+    .min(1, "Surname is required")
+    .regex(/^[A-Za-z]+$/, "Surname must contain only alphabetic characters"),
+  studentNumber: z.string()
+    .trim()
+    .length(9, "Student number must be exactly 9 digits")
+    .regex(/^\d{9}$/, "Student number must contain only numbers"),
+  password: z.string()
+    .min(8, "Password must be at least 8 characters long"),
+  confirmPassword: z.string()
+}).refine((data) => data.password === data.confirmPassword, {
+  message: "Passwords do not match",
+  path: ["confirmPassword"],
+});
+
+type SignupFormValues = z.infer<typeof signupSchema>;
 
 const SignupForm = () => {
-  const [formData, setFormData] = useState({
-    firstName: "",
-    surname: "",
-    studentNumber: "",
-    password: "",
-    confirmPassword: ""
-  });
-  const [isLoading, setIsLoading] = useState(false);
-  
   const navigate = useNavigate();
   const { signup } = useAuth();
   const { toast } = useToast();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData(prev => ({
-      ...prev,
-      [e.target.id]: e.target.value
-    }));
-  };
+  const form = useForm<SignupFormValues>({
+    resolver: zodResolver(signupSchema),
+    defaultValues: {
+      firstName: "",
+      surname: "",
+      studentNumber: "",
+      password: "",
+      confirmPassword: ""
+    },
+  });
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-
-    // Validate all fields are filled
-    if (!formData.firstName || !formData.surname || !formData.studentNumber || !formData.password || !formData.confirmPassword) {
-      toast({
-        title: "Error",
-        description: "Please fill in all fields",
-        variant: "destructive",
-      });
-      setIsLoading(false);
-      return;
-    }
-
-    // Validate passwords match
-    if (formData.password !== formData.confirmPassword) {
-      toast({
-        title: "Error",
-        description: "Passwords do not match",
-        variant: "destructive",
-      });
-      setIsLoading(false);
-      return;
-    }
-
-    const success = await signup(formData);
+  const onSubmit = async (data: SignupFormValues) => {
+    const signupData = {
+      firstName: data.firstName,
+      surname: data.surname,
+      studentNumber: data.studentNumber,
+      password: data.password,
+      confirmPassword: data.confirmPassword
+    };
+    
+    const success = await signup(signupData);
     
     if (success) {
       toast({
@@ -69,8 +72,6 @@ const SignupForm = () => {
         variant: "destructive",
       });
     }
-    
-    setIsLoading(false);
   };
 
   return (
@@ -78,91 +79,128 @@ const SignupForm = () => {
       <div className="max-w-xs mx-auto">
         <h3 className="text-lg sm:text-xl font-semibold text-gray-800 mb-4 text-center">Create Account</h3>
         
-        <form className="space-y-3" onSubmit={handleSubmit}>
-          {/* Name Fields - Smaller */}
-          <div className="grid grid-cols-2 gap-2 sm:gap-3">
-            <div>
-              <Label htmlFor="firstName" className="text-gray-600 mb-1 block text-xs">First Name</Label>
-              <Input 
-                id="firstName"
-                value={formData.firstName}
-                onChange={handleChange}
-                placeholder="First name"
-                className="border-gray-200 focus:border-blue-500 h-8 text-xs w-full"
-                required
+        <Form {...form}>
+          <form className="space-y-3" onSubmit={form.handleSubmit(onSubmit)}>
+            {/* Name Fields - Smaller */}
+            <div className="grid grid-cols-2 gap-2 sm:gap-3">
+              <FormField
+                control={form.control}
+                name="firstName"
+                render={({ field }) => (
+                  <FormItem>
+                    <Label htmlFor="firstName" className="text-gray-600 mb-1 block text-xs">First Name</Label>
+                    <FormControl>
+                      <Input 
+                        id="firstName"
+                        placeholder="First name"
+                        className="border-gray-200 focus:border-blue-500 h-8 text-xs w-full"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage className="text-xs" />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="surname"
+                render={({ field }) => (
+                  <FormItem>
+                    <Label htmlFor="surname" className="text-gray-600 mb-1 block text-xs">Surname</Label>
+                    <FormControl>
+                      <Input 
+                        id="surname"
+                        placeholder="Surname"
+                        className="border-gray-200 focus:border-blue-500 h-8 text-xs w-full"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage className="text-xs" />
+                  </FormItem>
+                )}
               />
             </div>
-            <div>
-              <Label htmlFor="surname" className="text-gray-600 mb-1 block text-xs">Surname</Label>
-              <Input 
-                id="surname"
-                value={formData.surname}
-                onChange={handleChange}
-                placeholder="Surname"
-                className="border-gray-200 focus:border-blue-500 h-8 text-xs w-full"
-                required
-              />
-            </div>
-          </div>
 
-          {/* Student Number - Smaller */}
-          <div>
-            <Label htmlFor="studentNumber" className="text-gray-600 mb-1 block text-xs">Student Number</Label>
-            <Input 
-              id="studentNumber"
-              value={formData.studentNumber}
-              onChange={handleChange}
-              placeholder="219xxxxx"
-              className="border-gray-200 focus:border-blue-500 h-8 text-xs w-full"
-              required
+            {/* Student Number - Smaller */}
+            <FormField
+              control={form.control}
+              name="studentNumber"
+              render={({ field }) => (
+                <FormItem>
+                  <Label htmlFor="studentNumber" className="text-gray-600 mb-1 block text-xs">Student Number</Label>
+                  <FormControl>
+                    <Input 
+                      id="studentNumber"
+                      placeholder="219xxxxx"
+                      className="border-gray-200 focus:border-blue-500 h-8 text-xs w-full"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage className="text-xs" />
+                </FormItem>
+              )}
             />
-          </div>
 
-          {/* Password - Smaller */}
-          <div>
-            <Label htmlFor="password" className="text-gray-600 mb-1 block text-xs">Password</Label>
-            <Input 
-              id="password"
-              type="password"
-              value={formData.password}
-              onChange={handleChange}
-              placeholder="••••••••••"
-              className="border-gray-200 focus:border-blue-500 h-8 text-xs w-full"
-              required
+            {/* Password - Smaller */}
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <Label htmlFor="password" className="text-gray-600 mb-1 block text-xs">Password</Label>
+                  <FormControl>
+                    <Input 
+                      id="password"
+                      type="password"
+                      placeholder="••••••••••"
+                      className="border-gray-200 focus:border-blue-500 h-8 text-xs w-full"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage className="text-xs" />
+                </FormItem>
+              )}
             />
-          </div>
 
-          {/* Confirm Password - Smaller */}
-          <div>
-            <Label htmlFor="confirmPassword" className="text-gray-600 mb-1 block text-xs">Confirm Password</Label>
-            <Input 
-              id="confirmPassword"
-              type="password"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              placeholder="••••••••••"
-              className="border-gray-200 focus:border-blue-500 h-8 text-xs w-full"
-              required
+            {/* Confirm Password - Smaller */}
+            <FormField
+              control={form.control}
+              name="confirmPassword"
+              render={({ field }) => (
+                <FormItem>
+                  <Label htmlFor="confirmPassword" className="text-gray-600 mb-1 block text-xs">Confirm Password</Label>
+                  <FormControl>
+                    <Input 
+                      id="confirmPassword"
+                      type="password"
+                      placeholder="••••••••••"
+                      className="border-gray-200 focus:border-blue-500 h-8 text-xs w-full"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage className="text-xs" />
+                </FormItem>
+              )}
             />
-          </div>
 
-          {/* Create Button - Smaller */}
-          <Button 
-            type="submit"
-            disabled={isLoading}
-            className="w-full bg-slate-900 hover:bg-slate-800 text-white py-1.5 rounded-lg font-medium text-xs h-8 mt-4"
-          >
-            {isLoading ? "Creating..." : "Create Account"}
-          </Button>
+            {/* Create Button - Smaller */}
+            <Button 
+              type="submit"
+              disabled={form.formState.isSubmitting}
+              className="w-full bg-slate-900 hover:bg-slate-800 text-white py-1.5 rounded-lg font-medium text-xs h-8 mt-4"
+            >
+              {form.formState.isSubmitting ? "Creating..." : "Create Account"}
+            </Button>
 
-          {/* Login Link - Smaller */}
-          <p className="text-center text-gray-600 mt-3 text-xs">
-            Already have an account?{" "}
-            <Link to="/login" className="text-blue-500 hover:text-blue-600 font-medium">
-              Login Here
-            </Link>
-          </p>
-        </form>
+            {/* Login Link - Smaller */}
+            <p className="text-center text-gray-600 mt-3 text-xs">
+              Already have an account?{" "}
+              <Link to="/login" className="text-blue-500 hover:text-blue-600 font-medium">
+                Login Here
+              </Link>
+            </p>
+          </form>
+        </Form>
       </div>
     </div>
   );
