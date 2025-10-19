@@ -5,6 +5,7 @@ import FeatureCards from "@/components/FeatureCards";
 import Testimonials from "@/components/Testimonials";
 import ContactForm from "@/components/ContactForm";
 import Footer from "@/components/Footer";
+import DialogflowMessenger from "@/components/DialogflowMessenger";
 import { Button } from "@/components/ui/button";
 import { GraduationCap, BookOpen, TrendingUp } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -65,6 +66,9 @@ const Index = () => {
       <Testimonials />
       <ContactForm />
       <Footer />
+      
+      {/* Dialogflow Chatbot */}
+      <DialogflowMessenger />
     </div>
   );
 };
